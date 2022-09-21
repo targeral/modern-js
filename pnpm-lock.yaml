@@ -318,6 +318,55 @@ importers:
       typescript: 4.7.4
       webpack: 5.73.0_1f091e9882867a645caac150cd4a7b4f
 
+  packages/cli/core-v2:
+    specifiers:
+      '@jest/types': ^27.0.6
+      '@modern-js/babel-preset-app': workspace:*
+      '@modern-js/node-bundle-require': workspace:*
+      '@modern-js/plugin': workspace:*
+      '@modern-js/types': workspace:*
+      '@modern-js/utils': workspace:*
+      '@scripts/build': workspace:*
+      '@scripts/jest-config': workspace:*
+      '@types/babel__code-frame': ^7.0.3
+      '@types/babel__core': ^7.1.16
+      '@types/jest': ^27
+      '@types/less': ^3.0.3
+      '@types/node': ^14
+      autoprefixer: ^10.3.1
+      btsm: 2.2.2
+      electron-builder: 22.7.0
+      jest: ^27
+      postcss: ^8.4.14
+      sass: ^1.45.0
+      terser-webpack-plugin: ^5.1.4
+      typescript: ^4
+      webpack: ^5.71.0
+    dependencies:
+      '@modern-js/node-bundle-require': link:../../toolkit/node-bundle-require
+      '@modern-js/plugin': link:../../toolkit/plugin
+      '@modern-js/utils': link:../../toolkit/utils
+    devDependencies:
+      '@jest/types': 27.5.1
+      '@modern-js/babel-preset-app': link:../babel-preset-app
+      '@modern-js/types': link:../../toolkit/types
+      '@scripts/build': link:../../../scripts/build
+      '@scripts/jest-config': link:../../../scripts/jest-config
+      '@types/babel__code-frame': 7.0.3
+      '@types/babel__core': 7.1.19
+      '@types/jest': 27.5.2
+      '@types/less': 3.0.3
+      '@types/node': 14.18.21
+      autoprefixer: 10.4.8_postcss@8.4.16
+      btsm: 2.2.2
+      electron-builder: 22.7.0
+      jest: 27.5.1
+      postcss: 8.4.16
+      sass: 1.54.4
+      terser-webpack-plugin: 5.3.3_557185401d8e4a94a813b2d6f9b6f80e
+      typescript: 4.7.4
+      webpack: 5.73.0_1f091e9882867a645caac150cd4a7b4f
+
   packages/cli/css-config:
     specifiers:
       '@modern-js/core': workspace:*
@@ -21768,7 +21817,7 @@ packages:
     hasBin: true
 
   /json-buffer/3.0.0:
-    resolution: {integrity: sha512-CuUqjv0FUZIdXkHPI8MezCnFCdaTAacej1TZYulLoAg1h/PhwkdXFN4V/gzY4g+fMBCOV2xF+rp7t2XD2ns/NQ==}
+    resolution: {integrity: sha1-Wx85evx11ne96Lz8Dkfh+aPZqJg=}
 
   /json-buffer/3.0.1:
     resolution: {integrity: sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==}
