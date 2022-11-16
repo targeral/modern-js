@@ -48,6 +48,7 @@
   "devDependencies": {
     "@modern-js/plugin-changeset": "workspace:*",
     "@modern-js/plugin-jarvis": "workspace:*",
+    "@modern-js/self": "workspace:./",
     "@scripts/build": "workspace:*",
     "@scripts/jest-config": "workspace:*",
     "@types/jest": "^27",

@@ -100,7 +100,6 @@ export interface PartialBaseBundleBuildConfig
   bundleOptions?: DeepPartial<BundleOptions>;
 }
 
-export type Assets = { path: string };
 export type StyleCompileMode = 'with-source-code' | 'only-compiled-code';
 export type BundlelessOptions = {
   sourceDir: string;

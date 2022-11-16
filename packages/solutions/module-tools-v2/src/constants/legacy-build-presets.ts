@@ -100,7 +100,7 @@ export const nodeJsPreset: PartialBuildConfig = [
     bundlelessOptions: { styleCompileMode: 'with-source-code' },
     path: './dist/js/node',
   },
-  { format: 'esm', target: 'es6', dts: false, path: './js/modern' },
+  { format: 'esm', target: 'es6', dts: false, path: './dist/js/modern' },
   {
     buildType: 'bundleless',
     dts: { only: true },
