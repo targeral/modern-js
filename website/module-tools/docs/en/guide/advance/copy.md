@@ -13,9 +13,9 @@ It is recommended to spend some time getting to know them before you start learn
 
 ## API Description
 
-`copy.patterns` 用于寻找复制的文件以及配置输出的路径。
+`copy.patterns` is used to find the copied file and configure the path to the output.
 
-其中 `patterns.from` 用于指定要复制的文件或者目录。它接收 Glob 形式字符串或具体路径。Glob 形式字符串是指 [fast-glob pattern-syntax](https://github.com/mrmlnc/fast-glob#pattern-syntax)。因此我们可以按照如下两种方式使用它：
+where `patterns.from` is used to specify the file or directory to be copied. It takes either a Glob pattern string or a specific path. Glob pattern string means [fast-glob pattern-syntax](https://github.com/mrmlnc/fast-glob#pattern-syntax). So we can use it in two ways.
 
 ``` ts
 export default defineConfig({
@@ -30,8 +30,8 @@ export default defineConfig({
 });
 ```
 
-`patterns.context` 一般和 `patterns.from` 配合使用，默认情况下它的值与 [`buildConfig.sourceDir`](/zh/api/build-config#sourcedir) 相同，因此我们可以按照如下方式指定 `src/data.json` 文件为要复制的文件：
-> 默认情况下，`buildConfig.sourceDir` 为 `src`
+`patterns.context` is generally used in conjunction with `patterns.from`, which by default has the same value as [`buildConfig.sourceDir`](/zh/api/build-config#sourcedir), so we can specify the `src/data.json` file as the file to be copied as follows.
+> By default, `buildConfig.sourceDir` is `src`
 
 ``` ts
 export default defineConfig({
@@ -45,7 +45,7 @@ export default defineConfig({
 });
 ```
 
-当指定的文件不在源码目录的时候，可以修改 `context` 配置。例如指定项目目录下的 `temp/index.html` 为要复制的文件：
+When the specified file is not in the source directory, you can modify the `context` configuration. For example, specify `temp/index.html` in the project directory as the file to be copied:
 
 ```ts
 import path from 'path';
@@ -65,7 +65,7 @@ export default defineConfig({
 });
 ```
 
-`patterns.to` 用于指定复制文件的输出路径，默认情况下它的值为 [`buildConfig.outdir`](zh/api/build-config#outdir)对应的值。因此我们按照如下方式将 `src/index.html` 复制到 `dist` 目录下：
+`patterns.to` is used to specify the output path of the copied file, which by default is the value corresponding to [`buildConfig.outdir`](zh/api/build-config#outdir). So we copy `src/index.html` to the `dist` directory as follows.
 
 ``` ts
 export default defineConfig({
@@ -79,18 +79,18 @@ export default defineConfig({
 });
 ```
 
-当我们配置了 `patterns.to` 的时候：
+When we have `patterns.to` configured:
 
-* 如果是相对路径，则该路径会相对于 `buildConfig.outdir` 计算出复制文件输出的绝对路径。
-* 如果是绝对路径，则会直接使用该值。
+* If it is a relative path, the path will be calculated relative to `buildConfig.outdir` to find the absolute path to the copied file output.
+* If it is an absolute path, the value will be used directly.
 
-最后 `patterns.globOptions` 用于配置寻找复制文件 [globby](https://github.com/sindresorhus/globby) 对象，其配置可参考：
+Finally `patterns.globOptions` is used to configure the find replica file [globby](https://github.com/sindresorhus/globby) object, whose configuration can be found at:
 
 * [globby.options](https://github.com/sindresorhus/globby#options)
 
-## 不同场景使用示例
+## Example of using different scenarios
 
-### 将文件复制文件
+### Copy file to file
 
 ``` ts
 export default defineConfig({
@@ -114,7 +114,7 @@ export default defineConfig({
 });
 ```
 
-### 将文件复制到目录
+### Copy file to directory
 
 ``` ts
 export default defineConfig({
@@ -138,7 +138,7 @@ export default defineConfig({
 });
 ```
 
-### 从目录复制到目录
+### Copy directory to directory
 
 ``` ts
 export default defineConfig({
@@ -165,7 +165,7 @@ export default defineConfig({
 });
 ```
 
-### 从目录到文件
+### Copy directory to file
 
 ``` ts
 export default defineConfig({
@@ -192,7 +192,7 @@ export default defineConfig({
 });
 ```
 
-### 使用 Glob
+### Use Glob
 
 ``` ts
 export default defineConfig({
