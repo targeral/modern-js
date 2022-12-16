@@ -106,7 +106,7 @@ import{jsx as t,jsxs as e,Fragment as p}from"react/jsx-runtime";import{a as E,C 
 `,e(o.li,{children:["type: ",t(o.code,{children:"boolean"})]}),`
 `,e(o.li,{children:["default: ",t(o.code,{children:"false"})]}),`
 `]}),`
-`,e(o.p,{children:["\u503C ",t(o.code,{children:"true"})," \u65F6\uFF0C\u8FD0\u884C\u65F6\u5728\u5E94\u7528\u5916\u5C42\u63D0\u4F9B ",t(o.code,{children:"styled-components"})," ",t(o.code,{children:"ThemeProvider"})," \u7EC4\u4EF6\uFF0C\u5E76\u4E14\u5C06\u901A\u8FC7 ",t(o.code,{children:"designSystem"})," \u751F\u6210\u7684 ",t(o.code,{children:"Theme Token"})," \u5BF9\u8C61\u6CE8\u5165\u3002"]})]})}function u(s={}){const{wrapper:o}=s.components||{};return o?t(o,Object.assign({},s,{children:t(c,s)})):c(s)}function l(s,o){throw new Error("Expected "+(o?"component":"object")+" `"+s+"` to be defined: you likely forgot to import, pass, or provide it.")}const g="2022/12/14 05:06:10",B=`# DesignSystem
+`,e(o.p,{children:["\u503C ",t(o.code,{children:"true"})," \u65F6\uFF0C\u8FD0\u884C\u65F6\u5728\u5E94\u7528\u5916\u5C42\u63D0\u4F9B ",t(o.code,{children:"styled-components"})," ",t(o.code,{children:"ThemeProvider"})," \u7EC4\u4EF6\uFF0C\u5E76\u4E14\u5C06\u901A\u8FC7 ",t(o.code,{children:"designSystem"})," \u751F\u6210\u7684 ",t(o.code,{children:"Theme Token"})," \u5BF9\u8C61\u6CE8\u5165\u3002"]})]})}function u(s={}){const{wrapper:o}=s.components||{};return o?t(o,Object.assign({},s,{children:t(c,s)})):c(s)}function l(s,o){throw new Error("Expected "+(o?"component":"object")+" `"+s+"` to be defined: you likely forgot to import, pass, or provide it.")}const g="2022/12/14 06:40:27",B=`# DesignSystem
 \u672C\u7AE0\u63CF\u8FF0\u4E86\u6709\u5173designSystem\u76F8\u5173\u7684\u914D\u7F6E
 
 :::tips
