@@ -8,6 +8,8 @@ export const EN_LOCALE = {
       describe: 'start dev server',
       entry: 'compiler by entry',
       apiOnly: 'start api server only',
+      selectEntry: 'Please select the entry that needs to be built',
+      requireEntry: 'You must choose at least one entry',
     },
     build: {
       describe: 'build application',
@@ -20,6 +22,7 @@ export const EN_LOCALE = {
       config: 'set default generator config(json string)',
       distTag: `use specified tag version for it's generator`,
       registry: 'set npm registry url to run npm command',
+      lang: 'set new command language(en or zh)',
     },
     inspect: {
       env: 'specify env mode',

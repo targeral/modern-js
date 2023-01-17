@@ -12,7 +12,8 @@ import {
   LoaderFunction,
   LoaderFunctionArgs,
 } from 'react-router-dom';
-import { LOADER_ROUTES_DIR, MAIN_ENTRY_NAME } from '@modern-js/utils';
+import { MAIN_ENTRY_NAME, SERVER_BUNDLE_DIRECTORY } from '@modern-js/utils';
+import { LOADER_ID_PARAM } from '../common/constants';
 
 type LoaderContext = {
   [key: string]: unknown;
@@ -43,8 +44,6 @@ type JsonFunction = <T>(
 
 // Polyfill Web Fetch API
 installGlobals();
-
-const LOADER_SEARCH_PARAM = '_loader';
 
 const redirectStatusCodes = new Set([301, 302, 303, 307, 308]);
 export function isRedirectResponse(response: NodeResponse): boolean {
@@ -198,7 +197,7 @@ export const handleRequest = async ({
   distDir: string;
 }) => {
   const { method, query } = context;
-  const routeId = query[LOADER_SEARCH_PARAM];
+  const routeId = query[LOADER_ID_PARAM];
   if (!routeId || method.toLowerCase() !== 'get') {
     return;
   }
@@ -210,8 +209,8 @@ export const handleRequest = async ({
 
   const routesPath = path.join(
     distDir,
-    LOADER_ROUTES_DIR,
-    entry.entryName || MAIN_ENTRY_NAME,
+    SERVER_BUNDLE_DIRECTORY,
+    `${entry.entryName || MAIN_ENTRY_NAME}-server-loaders`,
   );
   const { routes } = await import(routesPath);
 

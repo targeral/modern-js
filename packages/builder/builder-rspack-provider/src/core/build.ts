@@ -1,6 +1,11 @@
 import { createCompiler } from './createCompiler';
 import { initConfigs, InitConfigsOptions } from './initConfigs';
-import { BuildOptions, Stats, MultiStats } from '@modern-js/builder-shared';
+import {
+  logger,
+  BuildOptions,
+  Stats,
+  MultiStats,
+} from '@modern-js/builder-shared';
 import type { Compiler, RspackConfig } from '../types';
 
 // TODO: support MultiCompiler MultiStats
@@ -17,7 +22,7 @@ export interface RspackBuildError extends Error {
  */
 export const rspackBuild: BuildExecuter = async compiler => {
   return new Promise((resolve, reject) => {
-    compiler.run((err: any, stats: Stats) => {
+    compiler.run((err: any, stats?: Stats) => {
       // When using run or watch, call close and wait for it to finish before calling run or watch again.
       // Concurrent compilations will corrupt the output files.
       compiler.close(() => {
@@ -66,7 +71,11 @@ export const build = async (
   });
 
   if (watch) {
-    compiler.watch({});
+    compiler.watch({}, err => {
+      if (err) {
+        logger.error(err);
+      }
+    });
   } else {
     const executeResult = await executer?.(compiler);
     await context.hooks.onAfterBuildHook.call({

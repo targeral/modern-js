@@ -11,7 +11,7 @@ Modern.js 提供了对环境变量的支持，包含内置的环境变量和自�
 
 表示当前的执行环境，是**只读的**的环境变量，其值在不同的执行命令下具有不同的值：
 
-- `production`：执行 `modern build`、`modern preview` 命令时的默认值。
+- `production`：执行 `modern build`、`modern serve` 命令时的默认值。
 - `test`：执行 `modern test` 命令时的默认值。
 - `development`：执行 `modern dev` 命令时的默认值，同时也是其他所有情况下的默认值。
 
@@ -31,15 +31,16 @@ MODERN_ENV 的优先级高于 NODE_ENV。
 function App() {
   if (process.env.MODERN_TARGET === 'browser') {
     console.log(window.innerHeight);
-  };
-};
+  }
+}
 ```
 
 开发环境打包后，可以看到 SSR 产物和 CSR 产物如下：
 
 ```js title="dist/bundles/main.js"
 function App() {
-  if (false) {}
+  if (false) {
+  }
 }
 ```
 
@@ -80,8 +81,8 @@ BAR=456
 
 `.env` 文件遵循以下规则加载规则：
 
-* `.env`：默认加载。
-* `.env.{ MODERN_ENV | NODE_ENV }`：针对具体环境设置环境变量，会覆盖 `.env` 中的设置。
+- `.env`：默认加载。
+- `.env.{ MODERN_ENV | NODE_ENV }`：针对具体环境设置环境变量，会覆盖 `.env` 中的设置。
 
 当需要根据环境使用不同的配置时，可以把环境变量定义到对应环境名称的 `.env` 文件中，并在启动项目时手动设置执行环境。例如使用以下命令启动项目时，将会加载 `.env` 和 `.env.staging`:
 
@@ -121,7 +122,7 @@ if (true) {
 
 如果需要在代码中使用任意名称的环境变量，可以在 [`source.globalVars`](/docs/configure/app/source/global-vars) 配置指定, 例如：
 
-```typescript title="modern.config.ts"
+```ts title="modern.config.ts"
 export default defineConfig({
   source: {
     globalVars: {

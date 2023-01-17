@@ -1,5 +1,110 @@
 # @modern-js/plugin-storybook
 
+## 2.1.0
+
+### Patch Changes
+
+- 2ff7e98: fix: fix webpack builder config
+  fix: 修复 webpack builder 配置
+- Updated dependencies [f3237db]
+- Updated dependencies [837620c]
+- Updated dependencies [3ad26c2]
+- Updated dependencies [776cc27]
+- Updated dependencies [5b54418]
+- Updated dependencies [35d3e84]
+- Updated dependencies [ccbac43]
+- Updated dependencies [8a9482c]
+- Updated dependencies [679296d]
+  - @modern-js/runtime@2.1.0
+  - @modern-js/utils@2.1.0
+  - @modern-js/builder-shared@2.1.0
+  - @modern-js/builder-webpack-provider@2.1.0
+  - @modern-js/plugin-router-v5@2.1.0
+  - @modern-js/builder@2.1.0
+  - @modern-js/builder-plugin-node-polyfill@2.1.0
+
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies [39988b2]
+  - @modern-js/runtime@2.0.2
+  - @modern-js/plugin-router-v5@2.0.2
+  - @modern-js/builder-shared@2.0.2
+  - @modern-js/builder-webpack-provider@2.0.2
+  - @modern-js/utils@2.0.2
+  - @modern-js/builder@2.0.2
+  - @modern-js/builder-plugin-node-polyfill@2.0.2
+
+## 2.0.1
+
+### Patch Changes
+
+- @modern-js/builder@2.0.1
+- @modern-js/builder-shared@2.0.1
+- @modern-js/builder-webpack-provider@2.0.1
+- @modern-js/builder-plugin-node-polyfill@2.0.1
+- @modern-js/plugin-router-v5@2.0.1
+- @modern-js/runtime@2.0.1
+- @modern-js/utils@2.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- ffb2ed4: feat:
+
+  1. change storybook runtime logic
+  2. export runtime api define from runtime module
+  3. refactor defineConfig in module-tools
+
+  feat:
+
+  1. 更改 Storybook 对于 Runtime API 的处理逻辑
+  2. 从 @modern-js/runtime 导出 Runtime API 的用户配置
+  3. 重构 module-tools 的 defineConfig
+
+- Updated dependencies [c9e800d39a]
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [6bda14ed71]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [8b8e1bb571]
+- Updated dependencies [ffb2ed4]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/runtime@2.0.0
+  - @modern-js/builder-webpack-provider@2.0.0
+  - @modern-js/builder-plugin-node-polyfill@2.0.0
+  - @modern-js/utils@2.0.0
+  - @modern-js/plugin-router-v5@2.0.0
+  - @modern-js/builder@2.0.0
+  - @modern-js/builder-shared@2.0.0
+
+## 2.0.0-beta.7
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- Updated dependencies [c9e800d39a]
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [6bda14ed71]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [8b8e1bb571]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/runtime@2.0.0-beta.7
+  - @modern-js/builder-webpack-provider@2.0.0-beta.7
+  - @modern-js/builder-plugin-node-polyfill@2.0.0-beta.7
+  - @modern-js/utils@2.0.0-beta.7
+  - @modern-js/plugin-router-v5@2.0.0-beta.7
+  - @modern-js/builder@2.0.0-beta.7
+  - @modern-js/builder-shared@2.0.0-beta.7
+
 ## 2.0.0-beta.6
 
 ### Major Changes

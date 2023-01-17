@@ -27,13 +27,14 @@ export const defaultBuildConfig = Object.freeze<BaseBuildConfig>({
   umdGlobals: {},
   sourceDir: './src',
   alias: {},
+  metafile: false,
   umdModuleName: name => name,
   define: {},
   asset: {
     path: 'assets',
     limit: 14336,
     publicPath: '',
-    svgr: true,
+    svgr: false,
   },
   style: {
     less: {},

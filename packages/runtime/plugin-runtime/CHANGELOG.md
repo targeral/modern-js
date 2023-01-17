@@ -1,5 +1,109 @@
 # @modern-js/runtime
 
+## 2.1.0
+
+### Patch Changes
+
+- f3237db: fix: loadable component should not be wrapped in suspense
+  fix: loadable component 不应该被 suspense 包裹
+- 776cc27: chore: hard code MODER_TARGET
+  chore: 硬编码 MODER_TARGET
+- 35d3e84: fix: add missing esbuild
+  fix: 添加缺失的 esbuild
+- Updated dependencies [837620c]
+- Updated dependencies [8a9482c]
+  - @modern-js/utils@2.1.0
+  - @modern-js/plugin@2.1.0
+  - @modern-js/types@2.1.0
+
+## 2.0.2
+
+### Patch Changes
+
+- 39988b2: feat: advance the timing of static resource loading
+  feat: 将嵌套路由下静态资源加载时机提前
+- Updated dependencies [39988b2]
+  - @modern-js/types@2.0.2
+  - @modern-js/utils@2.0.2
+  - @modern-js/plugin@2.0.2
+
+## 2.0.1
+
+### Patch Changes
+
+- @modern-js/plugin@2.0.1
+- @modern-js/types@2.0.1
+- @modern-js/utils@2.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Minor Changes
+
+- c9e800d39a: feat: support React18 streaming SSR
+  feat: 支持 React18 流式 SSR
+
+### Patch Changes
+
+- 6bda14ed71: feat: refactor router with react-router@6.4
+
+  feat: 使用 react-router@6.4 重构路由模块
+
+- 8b8e1bb571: feat: support nested routes
+  feat: 支持嵌套路由
+- ffb2ed4: feat:
+
+  1. change storybook runtime logic
+  2. export runtime api define from runtime module
+  3. refactor defineConfig in module-tools
+
+  feat:
+
+  1. 更改 Storybook 对于 Runtime API 的处理逻辑
+  2. 从 @modern-js/runtime 导出 Runtime API 的用户配置
+  3. 重构 module-tools 的 defineConfig
+
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [6bda14ed71]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [8b8e1bb571]
+- Updated dependencies [ffb2ed4]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/utils@2.0.0
+  - @modern-js/types@2.0.0
+  - @modern-js/plugin@2.0.0
+
+## 2.0.0-beta.7
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Minor Changes
+
+- c9e800d39a: feat: support React18 streaming SSR
+  feat: 支持 React18 流式 SSR
+
+### Patch Changes
+
+- 6bda14ed71: feat: refactor router with react-router@6.4
+
+  feat: 使用 react-router@6.4 重构路由模块
+
+- 8b8e1bb571: feat: support nested routes
+  feat: 支持嵌套路由
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [6bda14ed71]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [8b8e1bb571]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/utils@2.0.0-beta.7
+  - @modern-js/types@2.0.0-beta.7
+  - @modern-js/plugin@2.0.0-beta.7
+
 ## 2.0.0-beta.6
 
 ### Major Changes

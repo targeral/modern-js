@@ -1,6 +1,5 @@
 import path from 'path';
-import assert from 'assert';
-import type { Compiler, Compilation } from 'webpack';
+import { Compiler, Compilation } from 'webpack';
 import type { BuilderPluginAPI } from '@modern-js/builder-webpack-provider';
 import {
   mergeRegex,
@@ -10,7 +9,12 @@ import {
   getBrowserslistWithDefault,
 } from '@modern-js/builder-shared';
 import { merge } from '@modern-js/utils/lodash';
-import { getCoreJsVersion, readTsConfig } from '@modern-js/utils';
+import {
+  chalk,
+  getCoreJsVersion,
+  logger,
+  isBeyondReact17,
+} from '@modern-js/utils';
 import { JsMinifyOptions } from '@modern-js/swc-plugins';
 import { minify } from './binding';
 import { PluginSwcOptions, TransformConfig } from './config';
@@ -22,8 +26,10 @@ const BUILDER_SWC_DEBUG_MODE = 'BUILDER_SWC_DEBUG_MODE';
  * In this plugin, we do:
  * - Remove Babel loader if exists
  * - Add our own swc loader
+ * - Remove JS minifier
+ * - Add swc minifier plugin
  */
-export const PluginSwc = (
+export const builderPluginSwc = (
   pluginConfig: PluginSwcOptions = {},
 ): BuilderPlugin => ({
   name: PLUGIN_NAME,
@@ -105,7 +111,7 @@ export const PluginSwc = (
         const { CheckPolyfillPlugin } = await import('./checkPolyfillPlugin');
 
         chain
-          .plugin(CHAIN_ID.PLUGIN.SwcPolyfillCheckerPlugin)
+          .plugin(CHAIN_ID.PLUGIN.SWC_POLYFILL_CHECKER)
           .use(new CheckPolyfillPlugin(swc));
       }
 
@@ -129,6 +135,11 @@ export const PluginSwc = (
   },
 });
 
+/**
+ * @deprecated Using builderPluginSwc instead.
+ */
+export const PluginSwc = builderPluginSwc;
+
 export interface Output {
   code: string;
   map?: string;
@@ -148,6 +159,11 @@ export class SwcWebpackPlugin {
   }
 
   apply(compiler: Compiler): void {
+    const meta = JSON.stringify({
+      name: 'swc-minify',
+      options: this.minifyOptions,
+    });
+
     compiler.hooks.compilation.tap(PLUGIN_NAME, async compilation => {
       const { Compilation } = compiler.webpack;
       const { devtool } = compilation.options;
@@ -159,90 +175,131 @@ export class SwcWebpackPlugin {
       this.minifyOptions.inlineSourcesContent =
         typeof devtool === 'string' && devtool.includes('inline');
 
+      compilation.hooks.chunkHash.tap(PLUGIN_NAME, (_, hash) =>
+        hash.update(meta),
+      );
+
       compilation.hooks.processAssets.tapPromise(
         {
           name: PLUGIN_NAME,
           stage: Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE_SIZE,
         },
         async () => {
-          await this.updateAssets(compilation);
+          try {
+            await this.updateAssets(compilation);
+          } catch (e) {
+            compilation.errors.push(
+              new compiler.webpack.WebpackError(`[SWC Minify]: ${e}`),
+            );
+          }
         },
       );
     });
   }
 
   async updateAssets(compilation: Compilation): Promise<void[]> {
+    const cache = compilation.getCache(PLUGIN_NAME);
+
     const { SourceMapSource, RawSource } = compilation.compiler.webpack.sources;
     const assets = compilation
       .getAssets()
       // TODO handle css minify
       .filter(asset => !asset.info.minimized && JS_RE.test(asset.name));
 
-    return Promise.all(
-      assets.map(async asset => {
-        const { source, map } = asset.source.sourceAndMap();
-        const result = await minify(
-          asset.name,
-          source.toString(),
-          this.minifyOptions,
-        );
+    const assetsWithCache = await Promise.all(
+      assets.map(async ({ name, info, source }) => {
+        const eTag = cache.getLazyHashedEtag(source);
+        const cacheItem = cache.getItemCache(name, eTag);
+        return {
+          name,
+          info,
+          source,
+          cacheItem,
+        };
+      }),
+    );
 
-        compilation.updateAsset(
-          asset.name,
-          this.minifyOptions.sourceMap && result.map
-            ? new SourceMapSource(
-                result.code,
-                asset.name,
-                result.map,
-                source.toString(),
-                map,
-                true,
-              )
-            : new RawSource(result?.code || ''),
-        );
+    return Promise.all(
+      assetsWithCache.map(async asset => {
+        const cache = await asset.cacheItem.getPromise<{
+          minifiedSource: InstanceType<
+            typeof SourceMapSource | typeof RawSource
+          >;
+        }>();
+
+        let minifiedSource = cache ? cache.minifiedSource : null;
+
+        if (!minifiedSource) {
+          const { source, map } = asset.source.sourceAndMap();
+          const minifyResult = await minifyWithTimeout(
+            asset.name,
+            source.toString(),
+            this.minifyOptions,
+          );
+
+          minifiedSource =
+            this.minifyOptions.sourceMap && minifyResult.map
+              ? new SourceMapSource(
+                  minifyResult.code,
+                  asset.name,
+                  minifyResult.map,
+                  source.toString(),
+                  map,
+                  true,
+                )
+              : new RawSource(minifyResult?.code || '');
+        }
+
+        await asset.cacheItem.storePromise({
+          minifiedSource,
+        });
+
+        compilation.updateAsset(asset.name, minifiedSource, {
+          ...asset.info,
+          minimized: true,
+        });
       }),
     );
   }
 }
 
+/**
+ * Determin react runtime mode based on react version
+ */
 function determinePresetReact(root: string, pluginConfig: PluginSwcOptions) {
-  let compilerOptions: Record<string, any>;
-  try {
-    const tsConfig = readTsConfig(root);
-    assert(typeof tsConfig === 'object');
-    assert('compilerOptions' in tsConfig);
-    ({ compilerOptions } = tsConfig);
-  } catch {
-    return;
-  }
-
   const presetReact =
     pluginConfig.presetReact || (pluginConfig.presetReact = {});
 
-  let runtime: 'classic' | 'automatic' = 'automatic';
-  if ('jsx' in compilerOptions) {
-    switch (compilerOptions.jsx) {
-      case 'react':
-        runtime = 'classic';
-        break;
-      case 'react-jsx':
-        runtime = 'automatic';
-        break;
-      default:
-    }
-    presetReact.runtime = runtime;
-  }
-
-  if (runtime === 'classic') {
-    presetReact.pragmaFrag = compilerOptions.jsxFragmentFactory;
-    presetReact.pragma = compilerOptions.jsxFactory;
-  }
-
-  if (runtime === 'automatic') {
-    presetReact.importSource = compilerOptions.jsxImportSource;
-  }
+  presetReact.runtime = isBeyondReact17(root) ? 'automatic' : 'classic';
 }
 
 function isDebugMode(): boolean {
   return process.env[BUILDER_SWC_DEBUG_MODE] !== undefined;
+}
+
+/**
+ * Currently SWC minify is not stable as we expected, there is a
+ * change that it can never ends, so add a warning if it hangs too long.
+ */
+function minifyWithTimeout(
+  filename: string,
+  code: string,
+  config: JsMinifyOptions,
+): Promise<Output> {
+  const timer = setTimeout(() => {
+    logger.warn(
+      `SWC minimize has running for over 180 seconds for a single file: ${filename}\n
+It is likely that you've encountered a ${chalk.red(
+        'SWC internal bug',
+      )}, please contact us at https://github.com/modern-js-dev/modern.js/issues`,
+    );
+  }, 180_1000);
+
+  const outputPromise = minify(filename, code, config);
+
+  outputPromise.finally(() => {
+    clearTimeout(timer);
+  });
+
+  return outputPromise;
 }

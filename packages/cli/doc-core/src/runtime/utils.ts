@@ -1,9 +1,13 @@
+import siteData from 'virtual-site-data';
 import {
   cleanUrl,
   addLeadingSlash,
   removeTrailingSlash,
   normalizeSlash,
   isProduction,
+  normalizeHref,
+  withBase as rawWithBase,
+  removeBase as rawRemoveBase,
 } from '../shared/utils';
 
 export const getRelativePagePath = (
@@ -22,14 +26,22 @@ export const getRelativePagePath = (
   return pagePath.replace(/^\//, '');
 };
 
-export function normalizeHref(url?: string) {
-  if (!url) {
-    return '/';
-  }
-  if (!isProduction() || url.startsWith('http')) {
-    return url.replace(/index$/, '');
-  }
-  return addLeadingSlash(url);
+export function normalizeRoutePath(routePath: string) {
+  return routePath.replace(/\.html$/, '').replace(/\/index$/, '/');
 }
 
-export { addLeadingSlash, removeTrailingSlash, normalizeSlash, isProduction };
+export function withBase(url = '/'): string {
+  return rawWithBase(url, siteData.base);
+}
+
+export function removeBase(url: string): string {
+  return rawRemoveBase(url, siteData.base);
+}
+
+export {
+  addLeadingSlash,
+  removeTrailingSlash,
+  normalizeSlash,
+  isProduction,
+  normalizeHref,
+};

@@ -18,19 +18,19 @@ const resolveStorybookWebPackConfig = (
 ) => {
   // override output
   sbWebpackConfig.output = clientWebpackConfig.output;
-  if (typeof clientWebpackConfig.output === 'object') {
-    sbWebpackConfig.output = {
-      ...clientWebpackConfig.output,
-      publicPath:
-        clientWebpackConfig.output?.publicPath === '/'
-          ? '' // Keep it consistent with the storybook
-          : clientWebpackConfig.output?.publicPath,
-    };
-  } else {
-    sbWebpackConfig.output = {
-      publicPath: '',
-    };
-  }
+  // if (typeof clientWebpackConfig.output === 'object') {
+  //   sbWebpackConfig.output = {
+  //     ...clientWebpackConfig.output,
+  //     publicPath:
+  //       clientWebpackConfig.output?.publicPath === '/'
+  //         ? '' // Keep it consistent with the storybook
+  //         : clientWebpackConfig.output?.publicPath,
+  //   };
+  // } else {
+  //   sbWebpackConfig.output = {
+  //     publicPath: '',
+  //   };
+  // }
 
   // handle module rules
   const applyModuleRules = () => {
@@ -142,20 +142,37 @@ export const getCustomWebpackConfigHandle = async ({
   configDir: string;
   modernConfig: ModuleNormalizedConfig;
 }) => {
+  const { mergeBuilderConfig } = await import('@modern-js/builder');
   const { appDirectory } = appContext;
 
+  const {
+    buildConfig: _,
+    buildPreset: __,
+    dev,
+    designSystem: ___,
+    ...builderConfig
+  } = modernConfig;
+
+  const storybookBuildConfig = dev?.storybook ?? {};
   const builder =
     appContext.builder ||
-    (await createWebpackBuilder(modernConfig as BuilderConfig));
+    (await createWebpackBuilder(
+      mergeBuilderConfig(builderConfig, {
+        tools: {
+          webpack: storybookBuildConfig.webpack,
+          webpackChain: storybookBuildConfig.webpackChain,
+        },
+      } as any) as BuilderConfig,
+    ));
 
   const { PluginStorybook } = await import('./builder-plugin');
 
   if (!builder.isPluginExists('builder-plugin-node-polyfill')) {
-    const { PluginNodePolyfill } = await import(
+    const { builderPluginNodePolyfill } = await import(
       '@modern-js/builder-plugin-node-polyfill'
     );
 
-    builder.addPlugins([PluginNodePolyfill()]);
+    builder.addPlugins([builderPluginNodePolyfill()]);
   }
 
   builder.addPlugins([PluginStorybook({ appDirectory, configDir })]);

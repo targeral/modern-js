@@ -8,6 +8,8 @@ export const ZH_LOCALE = {
       describe: '本地开发命令',
       entry: '指定入口，编译特定的页面',
       apiOnly: '仅启动 API 接口服务',
+      selectEntry: '请选择需要构建的入口',
+      requireEntry: '请至少选择一个入口',
     },
     build: {
       describe: '构建应用命令',
@@ -20,6 +22,7 @@ export const ZH_LOCALE = {
       config: '生成器运行默认配置(JSON 字符串)',
       distTag: '生成器使用特殊的 npm Tag 版本',
       registry: '生成器运行过程中定制 npm Registry',
+      lang: '设置 new 命令执行语言(zh 或者 en)',
     },
     inspect: {
       env: '查看指定环境下的配置',

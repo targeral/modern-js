@@ -54,10 +54,10 @@ export type NestedRoute = Merge<
     type: 'nested';
     parentId?: string;
     children?: NestedRoute[];
-    childIds?: string[];
     filename?: string;
     _component?: string;
     component?: string;
+    lazyImport?: () => Promise<any>;
     loading?: string;
     error?: string;
     isRoot?: boolean;

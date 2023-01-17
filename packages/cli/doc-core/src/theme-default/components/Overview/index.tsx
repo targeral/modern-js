@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Header, SidebarGroup, SidebarItem } from 'shared/types';
+import { useMemo } from 'react';
+import { Header, NormalizedSidebarGroup, SidebarItem } from 'shared/types';
 import { useSidebarData } from '../../logic';
 import { Link } from '../Link';
 import { isEqualPath } from '../../logic/utils';
@@ -18,59 +18,65 @@ interface Group {
 }
 
 export function Overview() {
-  const { subModules: overviewPageModules = [] } = usePageData();
+  const { siteData, routePath } = usePageData();
+  const { pages } = siteData;
+  const overviewPageModules = pages.filter(
+    page =>
+      page.routePath.startsWith(routePath.replace(/overview$/, '')) &&
+      page.routePath !== routePath,
+  );
   const { items: overviewSidebarGroups } = useSidebarData() as {
-    items: (SidebarGroup | SidebarItem)[];
+    items: (NormalizedSidebarGroup | SidebarItem)[];
   };
-  const initialGroups: Group[] = overviewSidebarGroups
-    .filter(item => 'items' in item)
-    .map(sidebarGroup => ({
-      name: sidebarGroup.text || '',
-      items: (sidebarGroup as SidebarGroup).items.map(
-        (item: SidebarGroup | SidebarItem) => {
-          const pageModule = overviewPageModules.find(m =>
-            isEqualPath(m.routePath as string, withBase(item.link || '')),
-          );
-          const getChildLink = (
-            traverseItem: SidebarItem | SidebarGroup,
-          ): string => {
-            if (traverseItem.link) {
-              return traverseItem.link;
-            }
-            if ('items' in traverseItem) {
-              return getChildLink(traverseItem.items[0]);
-            }
-            return '';
-          };
-          const link = getChildLink(item);
-          return {
-            ...item,
-            link,
-            headers:
-              (pageModule?.toc as Header[])?.filter(
-                header => header.depth === 2,
-              ) || [],
-          };
-        },
-      ),
-    })) as Group[];
-
-  const [groups] = useState(initialGroups);
+  const groups = useMemo(() => {
+    return overviewSidebarGroups
+      .filter(item => 'items' in item)
+      .map(sidebarGroup => ({
+        name: sidebarGroup.text || '',
+        items: (sidebarGroup as NormalizedSidebarGroup).items.map(
+          (item: NormalizedSidebarGroup | SidebarItem) => {
+            const pageModule = overviewPageModules.find(m =>
+              isEqualPath(m.routePath, withBase(item.link || '')),
+            );
+            const getChildLink = (
+              traverseItem: SidebarItem | NormalizedSidebarGroup,
+            ): string => {
+              if (traverseItem.link) {
+                return traverseItem.link;
+              }
+              if ('items' in traverseItem) {
+                return getChildLink(traverseItem.items[0]);
+              }
+              return '';
+            };
+            const link = getChildLink(item);
+            return {
+              ...item,
+              link,
+              headers:
+                (pageModule?.toc as Header[])?.filter(
+                  header => header.depth === 2,
+                ) || [],
+            };
+          },
+        ),
+      })) as Group[];
+  }, [overviewSidebarGroups]);
 
   return (
-    <div className="overview-index max-w-712px" m="x-auto" p="y-8 x-8">
-      <div flex="" items-center="" justify="between">
+    <div className="overview-index" m="x-auto" p="y-8 x-8">
+      <div flex="~" align-items-center="~" justify="between">
         <h1>Overview</h1>
       </div>
 
       {groups.map(group => (
-        <div mb="16" key={group.name}>
+        <div m="b-16" key={group.name}>
           <h2>{group.name}</h2>
           <div className={styles.overviewGroups}>
             {group.items.map(item => (
               <div className={styles.overviewGroup} key={item.link}>
-                <div flex="center">
-                  <h3 style={{ marginBottom: 0 }}>
+                <div flex="~">
+                  <h3 style={{ marginBottom: 8 }}>
                     <Link href={normalizeHref(item.link)}>{item.text}</Link>
                   </h3>
                 </div>
@@ -78,7 +84,7 @@ export function Overview() {
                   {item.headers?.map(header => (
                     <li
                       key={header.id}
-                      mt="first:2"
+                      m="first:t-2"
                       className={`${styles.overviewGroupLi} ${
                         styles[`level${header.depth}`]
                       }`}

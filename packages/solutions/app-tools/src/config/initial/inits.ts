@@ -6,6 +6,7 @@ import {
   globby,
   isModernjsMonorepo,
 } from '@modern-js/utils';
+import { getAutoInjectEnv } from '../../utils/env';
 import { AppNormalizedConfig, IAppContext } from '../../types';
 
 export function initHtmlConfig(
@@ -58,6 +59,17 @@ export function initSourceConfig(
 ) {
   config.source.include = createBuilderInclude(config, appContext);
   config.source.moduleScopes = createBuilderModuleScope(config);
+  config.source.globalVars = createBuilderGlobalVars(config, appContext);
+
+  function createBuilderGlobalVars(
+    config: AppNormalizedConfig,
+    appContext: IAppContext,
+  ) {
+    const { globalVars = {} } = config.source;
+    const publicEnv = getAutoInjectEnv(appContext);
+    return { ...globalVars, ...publicEnv };
+  }
+
   function createBuilderInclude(
     config: AppNormalizedConfig,
     appContext: IAppContext,
@@ -140,7 +152,7 @@ export function initToolsConfig(config: AppNormalizedConfig) {
     },
   };
 
-  const { tsChecker, tsLoader, htmlPlugin } = config.tools;
+  const { tsChecker, tsLoader } = config.tools;
   config.tools.tsChecker = applyOptionsChain(defaultTsChecker, tsChecker);
   tsLoader &&
     (config.tools.tsLoader = (tsLoaderConfig, utils) => {
@@ -154,22 +166,4 @@ export function initToolsConfig(config: AppNormalizedConfig) {
         utils,
       );
     });
-  config.tools.htmlPlugin = [
-    config => ({
-      ...config,
-      minify:
-        typeof config.minify === 'object'
-          ? {
-              ...config.minify,
-              removeComments: false,
-            }
-          : config.minify,
-    }),
-    // eslint-disable-next-line no-nested-ternary
-    ...(Array.isArray(htmlPlugin)
-      ? htmlPlugin
-      : htmlPlugin
-      ? [htmlPlugin]
-      : []),
-  ];
 }

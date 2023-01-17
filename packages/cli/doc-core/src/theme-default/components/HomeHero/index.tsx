@@ -1,6 +1,6 @@
 import { Button } from '../Button';
 import styles from './index.module.scss';
-import { normalizeHref, withBase, usePageData } from '@/runtime';
+import { normalizeHref, usePageData } from '@/runtime';
 
 const DEFAULT_HERO = {
   name: 'modern',
@@ -31,12 +31,13 @@ export function HomeHero() {
             font="bold"
             text="3xl sm:5xl md:6xl"
             m="auto md:0"
+            p="b-3"
             className="max-w-392px sm:max-w-576px"
           >
             <span className={styles.clip}>{hero.name}</span>
           </h1>
           <p
-            m="auto md:0"
+            m="x-auto md:0"
             text="3xl sm:5xl md:6xl"
             font="bold"
             className="max-w-392px sm:max-w-576px"
@@ -44,7 +45,7 @@ export function HomeHero() {
             {hero.text}
           </p>
           <p
-            p="t-3"
+            p="t-4"
             m="auto md:0"
             text="sm sm:xl md:2xl text-2"
             font="medium"
@@ -58,7 +59,7 @@ export function HomeHero() {
                 <Button
                   type="a"
                   text={action.text}
-                  href={normalizeHref(withBase(action.link))}
+                  href={normalizeHref(action.link)}
                   theme={action.theme}
                 />
               </div>
@@ -68,8 +69,8 @@ export function HomeHero() {
 
         {hasImage ? (
           <div
-            w="sm:max-80"
-            h="sm:max-80"
+            w="sm:max-60"
+            h="sm:max-60"
             flex="md:center"
             m="auto"
             order="1 md:2"

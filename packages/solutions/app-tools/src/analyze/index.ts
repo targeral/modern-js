@@ -1,16 +1,33 @@
 import * as path from 'path';
-import { createDebugger, fs, isApiOnly } from '@modern-js/utils';
+import {
+  createDebugger,
+  findExists,
+  fs,
+  getEntryOptions,
+  isApiOnly,
+  minimist,
+} from '@modern-js/utils';
 import type { CliPlugin } from '@modern-js/core';
 import { cloneDeep } from '@modern-js/utils/lodash';
 import { createBuilderForModern } from '../builder';
 import { printInstructions } from '../utils/printInstructions';
 import { generateRoutes } from '../utils/routes';
 import { emitResolvedConfig } from '../utils/config';
-import { getCommand } from '../utils/commands';
+import { getCommand, isDevCommand } from '../utils/commands';
+import { getSelectedEntries } from '../utils/getSelectedEntries';
 import { AppTools } from '../types';
 import { initialNormalizedConfig } from '../config';
-import { isNestedRouteComponent, isPageComponentFile } from './utils';
-import { loaderBuilder, serverLoaderBuilder } from './Builder';
+import {
+  getServerLoadersFile,
+  isPageComponentFile,
+  parseModule,
+  replaceWithAlias,
+} from './utils';
+import {
+  APP_CONFIG_NAME,
+  APP_INIT_EXPORTED,
+  APP_INIT_IMPORTED,
+} from './constants';
 
 const debug = createDebugger('plugin-analyze');
 
@@ -69,7 +86,6 @@ export default (): CliPlugin<AppTools> => ({
         ]);
 
         const entrypoints = getBundleEntry(appContext, resolvedConfig);
-        const defaultChecked = entrypoints.map(point => point.entryName);
 
         debug(`entrypoints: %o`, entrypoints);
 
@@ -115,10 +131,19 @@ export default (): CliPlugin<AppTools> => ({
 
         debug(`add Define Types`);
 
+        let checkedEntries = entrypoints.map(point => point.entryName);
+        if (isDevCommand()) {
+          const { entry } = minimist(process.argv.slice(2));
+          checkedEntries = await getSelectedEntries(
+            typeof entry === 'string' ? entry.split(',') : entry,
+            entrypoints,
+          );
+        }
+
         appContext = {
           ...appContext,
           entrypoints,
-          checkedEntries: defaultChecked,
+          checkedEntries,
           apiOnly,
           serverRoutes: routes,
           htmlTemplates,
@@ -191,6 +216,36 @@ export default (): CliPlugin<AppTools> => ({
       watchFiles() {
         return pagesDir;
       },
+      config() {
+        return {
+          tools: {
+            webpackChain: (chain, { name }) => {
+              const appContext = api.useAppContext();
+              const resolvedConfig = api.useResolvedConfigContext();
+              const { entrypoints, internalDirectory, packageName } =
+                appContext;
+              entrypoints.forEach(entrypoint => {
+                const { entryName } = entrypoint;
+                const ssr = getEntryOptions(
+                  entryName,
+                  resolvedConfig.server.ssr,
+                  resolvedConfig.server.ssrByEntries,
+                  packageName,
+                );
+                if (entrypoint.nestedRoutesEntry && ssr && name === 'server') {
+                  const serverLoadersFile = getServerLoadersFile(
+                    internalDirectory,
+                    entryName,
+                  );
+                  chain
+                    .entry(`${entryName}-server-loaders`)
+                    .add(serverLoadersFile);
+                }
+              });
+            },
+          },
+        };
+      },
 
       resolvedConfig({ resolved }) {
         const appContext = api.useAppContext();
@@ -200,9 +255,58 @@ export default (): CliPlugin<AppTools> => ({
         };
       },
 
-      async beforeRestart() {
-        serverLoaderBuilder.stop();
-        loaderBuilder.stop();
+      // This logic is not in the router plugin to avoid having to include some dependencies in the utils package
+      async modifyEntryImports({ entrypoint, imports }) {
+        const appContext = api.useAppContext();
+        const { srcDirectory, internalSrcAlias } = appContext;
+        const { fileSystemRoutes, nestedRoutesEntry } = entrypoint;
+        if (fileSystemRoutes && nestedRoutesEntry) {
+          const rootLayoutPath = path.join(nestedRoutesEntry, 'layout');
+          const rootLayoutFile = findExists(
+            ['.js', '.ts', '.jsx', '.tsx'].map(
+              ext => `${rootLayoutPath}${ext}`,
+            ),
+          );
+          if (rootLayoutFile) {
+            const rootLayoutBuffer = await fs.readFile(rootLayoutFile);
+            const rootLayout = rootLayoutBuffer.toString();
+            const [, moduleExports] = await parseModule({
+              source: rootLayout.toString(),
+              filename: rootLayoutFile,
+            });
+            const hasAppConfig = moduleExports.some(
+              e => e.n === APP_CONFIG_NAME,
+            );
+            const generateLayoutPath = replaceWithAlias(
+              srcDirectory,
+              rootLayoutFile,
+              internalSrcAlias,
+            );
+            if (hasAppConfig) {
+              imports.push({
+                value: generateLayoutPath,
+                specifiers: [{ imported: APP_CONFIG_NAME }],
+              });
+            }
+
+            const hasAppInit = moduleExports.some(
+              e => e.n === APP_INIT_EXPORTED,
+            );
+
+            if (hasAppInit) {
+              imports.push({
+                value: generateLayoutPath,
+                specifiers: [
+                  { imported: APP_INIT_EXPORTED, local: APP_INIT_IMPORTED },
+                ],
+              });
+            }
+          }
+        }
+        return {
+          entrypoint,
+          imports,
+        };
       },
 
       async fileChange(e) {
@@ -217,10 +321,8 @@ export default (): CliPlugin<AppTools> => ({
           isPageFile(absoluteFilePath) && isPageComponentFile(absoluteFilePath);
 
         if (
-          (isRouteComponent &&
-            (eventType === 'add' || eventType === 'unlink')) ||
-          (isNestedRouteComponent(nestedRouteEntries, absoluteFilePath) &&
-            eventType === 'change')
+          isRouteComponent &&
+          (eventType === 'add' || eventType === 'unlink')
         ) {
           const resolvedConfig = api.useResolvedConfigContext();
           const { generateCode } = await import('./generateCode');

@@ -31,12 +31,8 @@ npx modern bump
 # package-a
 
 ## 0.1.1
+
 ### Patch Changes
 
 - test publish
-
 ```
-
-import CommandTip from '@site-docs/components/command-tip.md'
-
-<CommandTip />

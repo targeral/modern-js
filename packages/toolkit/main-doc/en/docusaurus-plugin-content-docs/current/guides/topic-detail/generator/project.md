@@ -24,7 +24,7 @@ Use npx to get the latest version of `@modern-js/create` every time.
 
 Project directory name.
 
-When executing the above command, the 'projectDir` folder will be created in the current directory by default, and the initialization project will be in this folder. When this parameter is empty, the initialization project will be directly generated in the current directory.
+When executing the above command, the `projectDir` folder will be created in the current directory by default, and the initialization project will be in this folder. When this parameter is empty, the initialization project will be directly generated in the current directory.
 
 ### --version
 
@@ -56,7 +56,7 @@ npx @modern-js/create --config '{"packageManager": "pnpm"}'
 
 Specific configuration information viewable [Project Configuration](/docs/guides/topic-detail/generator/config/common).
 
-###  --no-need-install
+### --no-need-install
 
 By default, `@modern-js/create` automatically installs dependency after the project is created, use this parameter to ignore the install dependency step.
 
@@ -104,7 +104,7 @@ For custom generator plugins, please refer to [Development Generator Plugin](/do
 
 Specifies the microgenerator.
 
-By default, `@modern-js/create` will execute the microgenerator Modern.js framework build-in. If you need to execute a customized microgenerator, and you need to use the posture of'npx @modern-js/create ', you can use this parameter directly.
+By default, `@modern-js/create` will execute the microgenerator Modern.js framework build-in. If you need to execute a customized microgenerator, and you need to use the posture of `npx @modern-js/create`, you can use this parameter directly.
 
 For custom microgenerators, please refer to [Develop Microgenerator](/docs/guides/topic-detail/generator/codesmith/introduce).
 
@@ -113,6 +113,5 @@ For custom microgenerators, please refer to [Develop Microgenerator](/docs/guide
 A project is created by specifying a specific package version dependency.
 
 If you need to specify a specific package version when creating a project, you can use this parameter. This parameter will lock the package version number in the `package.json` of the project root directory by configuration `pnpm.overrides` (package management tool selects pnpm) or `resolutions`.
-
 
 The parameter value is a JSON character string.

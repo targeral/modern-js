@@ -1,13 +1,11 @@
 import path from 'path';
 import { getModuleCases, getModuleNewCases } from '@modern-js/generator-cases';
-import { v4 as uuidv4 } from 'uuid';
-import { fs } from '@modern-js/utils';
+import { fs, nanoid } from '@modern-js/utils';
 import { ModuleNewAction } from '@modern-js/new-action';
 import { prepare } from './utils/prepare';
 import { execaWithStreamLog, usingTempDir } from './utils/tools';
 import {
   runLintProject,
-  runTestProject,
   runCreteCommand,
   runInstallAndBuildProject,
 } from './utils/command';
@@ -23,7 +21,7 @@ async function createAllModuleProject(
     await usingTempDir(tmpDir, async cwd => {
       const projectName = `module-${Object.values(config).join(
         '-',
-      )}-${uuidv4()}`;
+      )}-${nanoid()}`;
       await runCreteCommand(repoDir, isLocal, {
         projectName,
         cwd,
@@ -128,7 +126,6 @@ async function main() {
     await createAllModuleProject(repoDir, tmpDir, isLocal, isSimple);
     await runInstallAndBuildProject('module', tmpDir);
     await runLintProject('module', tmpDir);
-    await runTestProject(tmpDir);
     await runNewInModuleProject(repoDir, tmpDir, isLocal, isSimple);
   } catch (e) {
     // eslint-disable-next-line no-process-exit

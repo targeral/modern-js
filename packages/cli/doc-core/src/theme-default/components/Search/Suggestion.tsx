@@ -1,9 +1,11 @@
 import type { MatchResultItem } from './logic/search';
+import styles from './index.module.scss';
 
 export function SuggestionContent(props: {
   suggestion: MatchResultItem;
   query: string;
   isCurrent: boolean;
+  isFirst: boolean;
 }) {
   const { suggestion, query } = props;
   const renderHeaderMatch = () => {
@@ -32,7 +34,7 @@ export function SuggestionContent(props: {
       statementHighlightIndex + query.length,
     );
     return (
-      <div font="normal" text="sm gray-light" w="100%">
+      <div font="normal" text="sm gray-light" w="full">
         <span>{statementPrefix}</span>
         <span text="brand-light">{query}</span>
         <span>{statementSuffix}</span>
@@ -41,16 +43,13 @@ export function SuggestionContent(props: {
   };
   return (
     <div
-      border-b-1=""
-      border-t-1=""
-      border-r-1=""
-      table-cell=""
+      table-cell="~"
       p="x-3 y-2"
       hover="bg-[#f3f4f5] "
       text="#2c3e50"
-      className={`border-right-none border-[#eaecef] ${
-        props.isCurrent ? 'bg-[#f3f4f5]' : 'bg-white'
-      }`}
+      className={`${props.isCurrent ? 'bg-[#f3f4f5]' : 'bg-white'} ${
+        styles.suggestionItem
+      } ${props.isFirst ? styles.suggestionItemFirst : ''}`}
       transition="bg duration-200"
     >
       <div font="medium" text="sm">

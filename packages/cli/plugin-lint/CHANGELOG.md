@@ -1,5 +1,77 @@
 # @modern-js/plugin-lint
 
+## 2.1.0
+
+### Patch Changes
+
+- Updated dependencies [837620c]
+- Updated dependencies [8a9482c]
+  - @modern-js/utils@2.1.0
+  - @modern-js/tsconfig@2.1.0
+
+## 2.0.2
+
+### Patch Changes
+
+- @modern-js/utils@2.0.2
+- @modern-js/tsconfig@2.0.2
+
+## 2.0.1
+
+### Patch Changes
+
+- @modern-js/tsconfig@2.0.1
+- @modern-js/utils@2.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- d4a456659b: chore: rename plugin-jarvis to plugin-lint
+
+  chore: 重命名 plugin-jarvis 为 plugin-lint
+
+- f680410886: feat: upgrade ESLint to 8.x version
+
+  feat: 升级 ESLint 到 8.x 版本
+
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [ffb2ed4]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/utils@2.0.0
+  - @modern-js/tsconfig@2.0.0
+
+## 2.0.0-beta.7
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- d4a456659b: chore: rename plugin-jarvis to plugin-lint
+
+  chore: 重命名 plugin-jarvis 为 plugin-lint
+
+- f680410886: feat: upgrade ESLint to 8.x version
+
+  feat: 升级 ESLint 到 8.x 版本
+
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [d4a456659b]
+- Updated dependencies [f680410886]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/utils@2.0.0-beta.7
+  - @modern-js/eslint-config@2.0.0-beta.7
+  - @modern-js-app/eslint-config@2.0.0-beta.7
+  - @modern-js/tsconfig@2.0.0-beta.7
+
 ## 2.0.0-beta.6
 
 ### Major Changes

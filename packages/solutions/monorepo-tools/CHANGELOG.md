@@ -1,5 +1,112 @@
 # @modern-js/monorepo-tools
 
+## 2.1.0
+
+### Patch Changes
+
+- 2ad9642: feat: new command support --lang params
+
+  feat: new 命令支持 --lang 参数
+
+- 6562578: chore: optimize the capitalization of plugin names
+
+  chore: 规范引用插件时的命名格式，统一使用 camelCase 代替 PascalCase
+
+- Updated dependencies [837620c]
+- Updated dependencies [bafa52e]
+- Updated dependencies [8a9482c]
+  - @modern-js/utils@2.1.0
+  - @modern-js/core@2.1.0
+  - @modern-js/plugin-changeset@2.1.0
+  - @modern-js/plugin-i18n@2.1.0
+  - @modern-js/plugin-lint@2.1.0
+  - @modern-js/new-action@2.1.0
+  - @modern-js/upgrade@2.1.0
+  - @modern-js/plugin@2.1.0
+
+## 2.0.2
+
+### Patch Changes
+
+- @modern-js/new-action@2.0.2
+- @modern-js/core@2.0.2
+- @modern-js/utils@2.0.2
+- @modern-js/plugin-changeset@2.0.2
+- @modern-js/plugin-i18n@2.0.2
+- @modern-js/plugin-lint@2.0.2
+- @modern-js/plugin@2.0.2
+- @modern-js/upgrade@2.0.2
+
+## 2.0.1
+
+### Patch Changes
+
+- @modern-js/core@2.0.1
+- @modern-js/plugin-changeset@2.0.1
+- @modern-js/plugin-i18n@2.0.1
+- @modern-js/plugin-lint@2.0.1
+- @modern-js/new-action@2.0.1
+- @modern-js/plugin@2.0.1
+- @modern-js/upgrade@2.0.1
+- @modern-js/utils@2.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- d4a456659b: chore: rename plugin-jarvis to plugin-lint
+
+  chore: 重命名 plugin-jarvis 为 plugin-lint
+
+- Updated dependencies [c9e800d39a]
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [d4a456659b]
+- Updated dependencies [f680410886]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [8b8e1bb571]
+- Updated dependencies [ffb2ed4]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/core@2.0.0
+  - @modern-js/utils@2.0.0
+  - @modern-js/plugin-lint@2.0.0
+  - @modern-js/plugin-changeset@2.0.0
+  - @modern-js/plugin-i18n@2.0.0
+  - @modern-js/new-action@2.0.0
+  - @modern-js/plugin@2.0.0
+  - @modern-js/upgrade@2.0.0
+
+## 2.0.0-beta.7
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- d4a456659b: chore: rename plugin-jarvis to plugin-lint
+
+  chore: 重命名 plugin-jarvis 为 plugin-lint
+
+- Updated dependencies [c9e800d39a]
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [d4a456659b]
+- Updated dependencies [f680410886]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [8b8e1bb571]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/core@2.0.0-beta.7
+  - @modern-js/utils@2.0.0-beta.7
+  - @modern-js/plugin-lint@2.0.0-beta.7
+  - @modern-js/plugin-changeset@2.0.0-beta.7
+  - @modern-js/plugin-i18n@2.0.0-beta.7
+  - @modern-js/new-action@2.0.0-beta.7
+  - @modern-js/plugin@2.0.0-beta.7
+  - @modern-js/upgrade@2.0.0-beta.7
+
 ## 2.0.0-beta.6
 
 ### Major Changes

@@ -11,7 +11,7 @@ sidebar_position: 1
 
 ### runtime
 
-* 类型：`Object`
+- 类型：`Object`
 
 runtime 配置方式如下：
 
@@ -25,8 +25,8 @@ import { defineConfig } from '@modern-js/app-tools';
 export default defineConfig({
   runtime: {
     state: true,
-    router: true
-  }
+    router: true,
+  },
 });
 ```
 
@@ -38,6 +38,28 @@ export default defineConfig({
 当 runtime 配置中存在函数时，只能使用该方式进行配置。
 :::
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="layout" label="约定式路由" default>
+
+```tsx title="src/routes/layout.tsx"
+import type { AppConfig } from '@modern-js/runtime';
+
+export const config = (): AppConfig => {
+  return {
+    router: {
+      supportHtml5History: false
+    }
+  }
+};
+```
+
+  </TabItem>
+
+  <TabItem value="app" label="自控路由">
+
 ```ts title="src/App.tsx"
 import { defineConfig } from '@modern-js/runtime';
 
@@ -47,12 +69,17 @@ const App = () => {
 
 defineConfig(App, {
   router: {
-    supportHtml5History: false
-  }
-})
+    supportHtml5History: false,
+  },
+});
 
 export default App;
 ```
+
+  </TabItem>
+</Tabs>
+
+
 
 :::info
 使用运行时配置，可以解决 Runtime 插件配置需要在运行时才能获取到具体内容问题。
@@ -66,8 +93,8 @@ defineConfig 中只能定义 Runtime 插件的具体配置内容，确认是否�
 
 ### runtimeByEntries
 
-* 类型： `Object`
-* 默认值：无
+- 类型： `Object`
+- 默认值：无
 
 #### 说明
 
@@ -82,10 +109,11 @@ export default defineConfig({
   },
   runtimeByEntries: {
     entry1: {
-       state: true, // { state: true }
+      state: true, // { state: true }
     },
-    entry2: { // { state: false, router: true }
-       router: true,
+    entry2: {
+      // { state: false, router: true }
+      router: true,
     },
   },
 });

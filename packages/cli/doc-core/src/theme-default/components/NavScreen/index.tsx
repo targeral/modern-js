@@ -42,21 +42,23 @@ const NavScreenTranslations = ({
 export function NavScreen(props: Props) {
   const { isScreenOpen, localeData, siteData, pathname } = props;
   const screen = useRef<HTMLDivElement | null>(null);
-  const localeLanguages = Object.values(siteData.themeConfig.locales || {});
-  const hasMultiLanguage = localeLanguages.length > 1;
+  const localesData = siteData.themeConfig.locales || [];
+  const hasMultiLanguage = localesData.length > 1;
   const menuItems = localeData.nav || [];
   const hasAppearanceSwitch = siteData.themeConfig.darkMode !== false;
   const socialLinks = siteData?.themeConfig?.socialLinks || [];
   const hasSocialLinks = socialLinks.length > 0;
+  const langs = localesData.map(item => item.lang || 'zh') || [];
+  const { base } = siteData;
 
   const translationMenuData = hasMultiLanguage
     ? {
         text: <Translator w="18px" h="18px" />,
-        items: localeLanguages.map(item => ({
+        items: localesData.map(item => ({
           text: item.label,
           link: `/${item.lang}`,
         })),
-        activeIndex: localeLanguages.findIndex(
+        activeIndex: localesData.findIndex(
           item => item.lang === localeData.lang,
         ),
       }
@@ -64,7 +66,7 @@ export function NavScreen(props: Props) {
   const NavScreenAppearance = () => {
     return (
       <div
-        className={`items-center appearance pa-2 ${styles.navAppearance}`}
+        className={`align-items-center appearance pa-2 ${styles.navAppearance}`}
         flex="~"
         justify="center"
       >
@@ -77,9 +79,15 @@ export function NavScreen(props: Props) {
       <div className={styles.navMenu}>
         {menuItems.map((item, index) => {
           return (
-            <div key={index} w="100%" className={styles.navMenuItem}>
+            <div key={index} w="full" className={styles.navMenuItem}>
               {'link' in item ? (
-                <NavMenuSingleItem pathname={pathname} key={index} {...item} />
+                <NavMenuSingleItem
+                  pathname={pathname}
+                  key={index}
+                  base={base}
+                  langs={langs}
+                  {...item}
+                />
               ) : (
                 <div m="x-3" last="mr-0" key={index}>
                   <NavScreenMenuGroup {...item} />
@@ -111,7 +119,7 @@ export function NavScreen(props: Props) {
           className={styles.socialAndAppearance}
           flex="~"
           justify="center"
-          items-center="center"
+          align-items-center="center"
         >
           {hasAppearanceSwitch && <NavScreenAppearance />}
         </div>

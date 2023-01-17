@@ -1,16 +1,16 @@
-import { isUseCssSourceMap, LESS_REGEX } from '@modern-js/builder-shared';
-import _ from '@modern-js/utils/lodash';
-import type {
-  BuilderPlugin,
+import {
+  isUseCssSourceMap,
+  LESS_REGEX,
   FileFilterUtil,
-  LessLoaderOptions,
-} from '../types';
+} from '@modern-js/builder-shared';
+import _ from '@modern-js/utils/lodash';
+import type { BuilderPlugin, LessLoaderOptions } from '../types';
 
 export type LessLoaderUtils = {
   addExcludes: FileFilterUtil;
 };
 
-export function PluginLess(): BuilderPlugin {
+export function builderPluginLess(): BuilderPlugin {
   return {
     name: 'builder-plugin-less',
     setup(api) {
@@ -28,8 +28,6 @@ export function PluginLess(): BuilderPlugin {
 
           const defaultLessLoaderOptions: LessLoaderOptions = {
             lessOptions: {
-              // Compat for antd or other component libraries which use math function to calculate the value
-              math: 'always',
               javascriptEnabled: true,
             },
             sourceMap: isUseCssSourceMap(config),

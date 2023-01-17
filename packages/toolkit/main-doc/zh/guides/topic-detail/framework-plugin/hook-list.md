@@ -121,6 +121,29 @@ export default (): CliPlugin => ({
 });
 ```
 
+### `afterPrepare`
+
+- 功能：运行前置准备流程的之后的任务
+- 执行阶段：前置准备流程之后
+- Hook 模型：AsyncWorkflow
+- 类型：`AsyncWorkflow<void, void>`
+- 使用示例：
+
+```ts
+import type { CliPlugin } from '@modern-js/core';
+
+export default (): CliPlugin => ({
+  setup(api) {
+    return {
+      afterPrepare: () => {
+        // do something
+      },
+    };
+  },
+});
+```
+
+
 ### `commands`
 
 - 功能：为 command 添加新的命令
@@ -149,10 +172,10 @@ export default (): CliPlugin => ({
 将上面这个插件添加到 `modern.config.ts` 中：
 
 ```ts title="modern.config.ts"
-import MyPlugin from './config/plugin/MyPlugin';
+import myPlugin from './config/plugin/myPlugin';
 
 export default defineConfig({
-  plugins: [MyPlugin()],
+  plugins: [myPlugin()],
 });
 ```
 

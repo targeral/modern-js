@@ -93,7 +93,7 @@ export function createBuilderProviderConfig(
     output,
     dev: {
       ...normalizedConfig.dev,
-      port: normalizedConfig.server?.port,
+      port: appContext.port,
     },
     html: htmlConfig,
   };
@@ -154,17 +154,19 @@ async function applyBuilderPlugins(
   compatPluginConfig?: PluginCompatModernOptions,
 ) {
   if (!normalizedConfig.output.disableNodePolyfill) {
-    const { PluginNodePolyfill } = await import(
+    const { builderPluginNodePolyfill } = await import(
       '@modern-js/builder-plugin-node-polyfill'
     );
-    builder.addPlugins([PluginNodePolyfill()]);
+    builder.addPlugins([builderPluginNodePolyfill()]);
   }
 
   if (normalizedConfig.tools.esbuild) {
     const { esbuild: esbuildOptions } = normalizedConfig.tools;
-    const { PluginEsbuild } = await import('@modern-js/builder-plugin-esbuild');
+    const { builderPluginEsbuild } = await import(
+      '@modern-js/builder-plugin-esbuild'
+    );
     builder.addPlugins([
-      PluginEsbuild({
+      builderPluginEsbuild({
         loader: false,
         minimize: applyOptionsChain<any, any>({}, esbuildOptions),
       }),

@@ -31,9 +31,7 @@ export function DocLayout(props: DocLayoutProps) {
   // 2. themeConfig.locales.sidebar
   // 3. themeConfig.sidebar
   const hasSidebar =
-    frontmatter?.sidebar !== false &&
-    ((Array.isArray(sidebar) && sidebar.length > 0) ||
-      Object.keys(sidebar).length > 0);
+    frontmatter?.sidebar !== false && Object.keys(sidebar).length > 0;
   const outlineTitle =
     localesData?.outlineTitle || themeConfig?.outlineTitle || 'ON THIS PAGE';
   const hasAside =
@@ -41,7 +39,7 @@ export function DocLayout(props: DocLayoutProps) {
     (frontmatter?.outline ?? themeConfig?.outline ?? true);
   const isOverviewPage = frontmatter?.overview ?? false;
   return (
-    <div p="t-0 b-24 sm:6" m="sm:t-14" className={styles.docLayout}>
+    <div p="t-0" m="md:t-14" className={styles.docLayout}>
       {beforeDoc}
       {hasSidebar ? (
         <SideMenu
@@ -50,45 +48,35 @@ export function DocLayout(props: DocLayoutProps) {
           sidebarData={sidebarData}
         />
       ) : null}
-      <div flex="~ 1 shrink-0" className={`${styles.content}`}>
-        <div relative="~" className={`max-w-100% md:max-w-75% lg:min-w-640px`}>
+      <div flex="~ shrink-0" className={`${styles.content}`}>
+        <div w="full">
           {isOverviewPage ? (
             <Overview />
           ) : (
             <div className="modern-doc">
               <Content />
+              <div>
+                {beforeDocFooter}
+                <DocFooter />
+              </div>
             </div>
           )}
-
-          {beforeDocFooter}
-          <DocFooter />
         </div>
-        <div
-          relative="~"
-          display="none lg:block"
-          order="2"
-          flex="1"
-          p="l-16"
-          className="max-w-256px"
-        >
-          <div className={styles.asideContainer}>
-            <div
-              flex="~ col"
-              p="b-8"
-              style={{
-                minHeight: 'calc(100vh - (var(--modern-nav-height) + 32px))',
-              }}
-            >
-              {hasAside ? (
-                <div>
-                  {beforeOutline}
-                  <Aside headers={headers} outlineTitle={outlineTitle} />
-                  {afterOutline}
-                </div>
-              ) : null}
+
+        {hasAside ? (
+          <div
+            className={styles.asideContainer}
+            style={{
+              minHeight: 'calc(100vh - (var(--modern-nav-height) + 32px))',
+            }}
+          >
+            <div>
+              {beforeOutline}
+              <Aside headers={headers} outlineTitle={outlineTitle} />
+              {afterOutline}
             </div>
           </div>
-        </div>
+        ) : null}
       </div>
       {afterDoc}
     </div>

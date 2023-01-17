@@ -1,5 +1,53 @@
 # @modern-js/generator-common
 
+## 3.0.3
+
+### Patch Changes
+
+- 4181b2d: chore: optimize the capitalization of new command plugin names
+
+  chore: 优化 new 命令提示的插件名称格式
+
+  - @modern-js/plugin-i18n@2.1.0
+
+## 3.0.2
+
+### Patch Changes
+
+- 4568607: fix: module test plugin dep
+
+  fix: 修复模块开启测试功能依赖提示问题
+
+  - @modern-js/plugin-i18n@2.0.2
+
+## 3.0.1
+
+### Patch Changes
+
+- @modern-js/plugin-i18n@2.0.1
+
+## 3.0.0
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- Updated dependencies [dda38c9c3e]
+  - @modern-js/plugin-i18n@2.0.0
+
+## 3.0.0-beta.6
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- Updated dependencies [dda38c9c3e]
+  - @modern-js/plugin-i18n@2.0.0-beta.7
+
 ## 3.0.0-beta.5
 
 ### Major Changes

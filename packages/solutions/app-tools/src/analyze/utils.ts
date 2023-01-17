@@ -8,8 +8,8 @@ import { parse } from 'es-module-lexer';
 import type { ImportStatement } from '../types';
 import {
   FILE_SYSTEM_ROUTES_FILE_NAME,
+  JS_EXTENSIONS,
   LOADER_EXPORT_NAME,
-  NESTED_ROUTE,
 } from './constants';
 
 export const walkDirectory = (dir: string): string[] =>
@@ -105,24 +105,6 @@ export const isPageComponentFile = (filePath: string) => {
   return false;
 };
 
-export const isNestedRouteComponent = (
-  nestedRouteEntries: string[],
-  absoluteFilePath: string,
-) => {
-  const reg = new RegExp(
-    `(${NESTED_ROUTE.LAYOUT_FILE}|${NESTED_ROUTE.PAGE_FILE}})\\.tsx?$`,
-  );
-  return nestedRouteEntries.some(nestedRoutesEntry => {
-    if (
-      absoluteFilePath.includes(nestedRoutesEntry) &&
-      reg.test(absoluteFilePath)
-    ) {
-      return true;
-    }
-    return false;
-  });
-};
-
 export const replaceWithAlias = (
   base: string,
   filePath: string,
@@ -138,7 +120,7 @@ export const parseModule = async ({
 }) => {
   let content = source;
 
-  if (filename.endsWith('.tsx') || filename.endsWith('.jsx')) {
+  if (JS_EXTENSIONS.some(ext => filename.endsWith(ext))) {
     const result = await transform(content, {
       loader: path.extname(filename).slice(1) as Loader,
       format: 'esm',
@@ -157,4 +139,11 @@ export const hasLoader = async (filename: string) => {
     filename,
   });
   return moduleExports.some(e => e.n === LOADER_EXPORT_NAME);
+};
+
+export const getServerLoadersFile = (
+  internalDirectory: string,
+  entryName: string,
+) => {
+  return path.join(internalDirectory, entryName, 'route-server-loaders.js');
 };

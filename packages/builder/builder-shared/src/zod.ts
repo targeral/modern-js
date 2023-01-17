@@ -23,6 +23,7 @@ export const primitive = () => {
     z.number(),
     z.boolean(),
     z.null(),
+    z.undefined(),
   ]);
   return literalSchema;
 };
@@ -37,6 +38,8 @@ export const json = () => {
 export const partialObj = <T extends ZodRawShape>(src: T) => {
   return z.object(src).partial();
 };
+
+export const anyFunction = (): z.ZodFunction<any, any> => z.function();
 
 export type Literal = string | number | boolean | null | undefined;
 

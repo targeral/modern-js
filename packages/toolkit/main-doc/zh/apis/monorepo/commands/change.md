@@ -42,17 +42,14 @@ $ npx modern change
 🦋  If you want to modify or expand on the changeset summary, you can find it here
 🦋  info /xxxx/monorepo/.changeset/long-lizards-talk.md
 ```
+
 上面我们给 `package-a` 和 `package-b` 都选择了 `patch` 变更，具体的变更信息在 monorepo 根目录下的 `.changeset/long-lizards-talk.md` 中:
 
 ```md
 ---
-"package-a": patch
-"package-b": patch
+'package-a': patch
+'package-b': patch
 ---
 
 test publish
 ```
-
-import CommandTip from '@site-docs/components/command-tip.md'
-
-<CommandTip />

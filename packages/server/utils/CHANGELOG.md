@@ -1,5 +1,67 @@
 # @modern-js/server-utils
 
+## 2.1.0
+
+### Patch Changes
+
+- Updated dependencies [837620c]
+- Updated dependencies [8a9482c]
+  - @modern-js/utils@2.1.0
+  - @modern-js/babel-preset-lib@2.1.0
+  - @modern-js/babel-compiler@2.1.0
+  - @modern-js/plugin@2.1.0
+
+## 2.0.2
+
+### Patch Changes
+
+- @modern-js/utils@2.0.2
+- @modern-js/babel-preset-lib@2.0.2
+- @modern-js/babel-compiler@2.0.2
+- @modern-js/plugin@2.0.2
+
+## 2.0.1
+
+### Patch Changes
+
+- @modern-js/babel-preset-lib@2.0.1
+- @modern-js/babel-compiler@2.0.1
+- @modern-js/plugin@2.0.1
+- @modern-js/utils@2.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [ffb2ed4]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/utils@2.0.0
+  - @modern-js/babel-preset-lib@2.0.0
+  - @modern-js/babel-compiler@2.0.0
+  - @modern-js/plugin@2.0.0
+
+## 2.0.0-beta.7
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/utils@2.0.0-beta.7
+  - @modern-js/babel-preset-lib@2.0.0-beta.7
+  - @modern-js/babel-compiler@2.0.0-beta.7
+  - @modern-js/plugin@2.0.0-beta.7
+
 ## 2.0.0-beta.6
 
 ### Major Changes

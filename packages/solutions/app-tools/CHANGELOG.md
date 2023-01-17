@@ -1,5 +1,217 @@
 # @modern-js/app-tools
 
+## 2.1.0
+
+### Patch Changes
+
+- 2ad9642: feat: new command support --lang params
+
+  feat: new 命令支持 --lang 参数
+
+- bf38bda: feat(app-tools): allow to use dev.port config
+
+  feat(app-tools): 支持使用 dev.port 配置
+
+- 29fbc66: fix(app-tools): SVG default export type
+
+  fix(app-tools): 修复 SVG 默认导出的类型错误
+
+- 3a7da8c: fix(app-tools): server.port not work in development
+
+  fix(app-tools): 修复开发环境下 server.port 不生效的问题
+
+- 3d0fb38: fix: remove the prebundle for data loader
+  fix: 移除 data loader 的预打包
+- 6562578: chore: optimize the capitalization of plugin names
+
+  chore: 规范引用插件时的命名格式，统一使用 camelCase 代替 PascalCase
+
+- 0d2af52: docs: add docs for config and init
+  docs: 添加 config 和 init 在嵌套路由下的文档
+- 84ee9e9: fix: can't exit process after build
+  fix: 在 build 后不退出程序
+- 5b54418: fix(builder): no longer remove comments of HTML
+
+  fix(builder): 不再默认移除 HTML 中的注释
+
+- Updated dependencies [837620c]
+- Updated dependencies [3d0fb38]
+- Updated dependencies [3ad26c2]
+- Updated dependencies [5b54418]
+- Updated dependencies [bafa52e]
+- Updated dependencies [ccbac43]
+- Updated dependencies [8a9482c]
+- Updated dependencies [679296d]
+  - @modern-js/utils@2.1.0
+  - @modern-js/plugin-data-loader@2.1.0
+  - @modern-js/server@2.1.0
+  - @modern-js/builder-shared@2.1.0
+  - @modern-js/builder-webpack-provider@2.1.0
+  - @modern-js/core@2.1.0
+  - @modern-js/builder@2.1.0
+  - @modern-js/builder-plugin-esbuild@2.1.0
+  - @modern-js/builder-plugin-node-polyfill@2.1.0
+  - @modern-js/plugin-i18n@2.1.0
+  - @modern-js/plugin-lint@2.1.0
+  - @modern-js/new-action@2.1.0
+  - @modern-js/prod-server@2.1.0
+  - @modern-js/node-bundle-require@2.1.0
+  - @modern-js/upgrade@2.1.0
+  - @modern-js/plugin@2.1.0
+  - @modern-js/types@2.1.0
+
+## 2.0.2
+
+### Patch Changes
+
+- 39988b2: feat: advance the timing of static resource loading
+  feat: 将嵌套路由下静态资源加载时机提前
+- Updated dependencies [39988b2]
+  - @modern-js/types@2.0.2
+  - @modern-js/new-action@2.0.2
+  - @modern-js/builder-shared@2.0.2
+  - @modern-js/builder-webpack-provider@2.0.2
+  - @modern-js/core@2.0.2
+  - @modern-js/plugin-data-loader@2.0.2
+  - @modern-js/prod-server@2.0.2
+  - @modern-js/server@2.0.2
+  - @modern-js/utils@2.0.2
+  - @modern-js/builder@2.0.2
+  - @modern-js/builder-plugin-esbuild@2.0.2
+  - @modern-js/builder-plugin-node-polyfill@2.0.2
+  - @modern-js/plugin-i18n@2.0.2
+  - @modern-js/plugin-lint@2.0.2
+  - @modern-js/node-bundle-require@2.0.2
+  - @modern-js/plugin@2.0.2
+  - @modern-js/upgrade@2.0.2
+
+## 2.0.1
+
+### Patch Changes
+
+- @modern-js/builder@2.0.1
+- @modern-js/builder-shared@2.0.1
+- @modern-js/builder-webpack-provider@2.0.1
+- @modern-js/builder-plugin-esbuild@2.0.1
+- @modern-js/builder-plugin-node-polyfill@2.0.1
+- @modern-js/core@2.0.1
+- @modern-js/plugin-data-loader@2.0.1
+- @modern-js/plugin-i18n@2.0.1
+- @modern-js/plugin-lint@2.0.1
+- @modern-js/new-action@2.0.1
+- @modern-js/prod-server@2.0.1
+- @modern-js/server@2.0.1
+- @modern-js/node-bundle-require@2.0.1
+- @modern-js/plugin@2.0.1
+- @modern-js/types@2.0.1
+- @modern-js/upgrade@2.0.1
+- @modern-js/utils@2.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Minor Changes
+
+- edd1cfb1af: feat: modernjs Access builder compiler
+  feat: modernjs 接入 builder 构建
+- bbe4c4ab64: feat: add @modern-js/plugin-swc
+
+  feat: 新增 @modern-js/plugin-swc 插件
+
+### Patch Changes
+
+- d4a456659b: chore: rename plugin-jarvis to plugin-lint
+
+  chore: 重命名 plugin-jarvis 为 plugin-lint
+
+- 6bda14ed71: feat: refactor router with react-router@6.4
+
+  feat: 使用 react-router@6.4 重构路由模块
+
+- 8b8e1bb571: feat: support nested routes
+  feat: 支持嵌套路由
+- Updated dependencies [c9e800d39a]
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [d4a456659b]
+- Updated dependencies [6bda14ed71]
+- Updated dependencies [f680410886]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [8b8e1bb571]
+- Updated dependencies [ffb2ed4]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/core@2.0.0
+  - @modern-js/prod-server@2.0.0
+  - @modern-js/builder-webpack-provider@2.0.0
+  - @modern-js/builder-plugin-node-polyfill@2.0.0
+  - @modern-js/utils@2.0.0
+  - @modern-js/plugin-lint@2.0.0
+  - @modern-js/types@2.0.0
+  - @modern-js/builder@2.0.0
+  - @modern-js/builder-shared@2.0.0
+  - @modern-js/builder-plugin-esbuild@2.0.0
+  - @modern-js/plugin-data-loader@2.0.0
+  - @modern-js/plugin-i18n@2.0.0
+  - @modern-js/new-action@2.0.0
+  - @modern-js/server@2.0.0
+  - @modern-js/node-bundle-require@2.0.0
+  - @modern-js/plugin@2.0.0
+  - @modern-js/upgrade@2.0.0
+
+## 2.0.0-beta.7
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Minor Changes
+
+- edd1cfb1af: feat: modernjs Access builder compiler
+  feat: modernjs 接入 builder 构建
+- bbe4c4ab64: feat: add @modern-js/plugin-swc
+
+  feat: 新增 @modern-js/plugin-swc 插件
+
+### Patch Changes
+
+- d4a456659b: chore: rename plugin-jarvis to plugin-lint
+
+  chore: 重命名 plugin-jarvis 为 plugin-lint
+
+- 6bda14ed71: feat: refactor router with react-router@6.4
+
+  feat: 使用 react-router@6.4 重构路由模块
+
+- 8b8e1bb571: feat: support nested routes
+  feat: 支持嵌套路由
+- Updated dependencies [c9e800d39a]
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [d4a456659b]
+- Updated dependencies [6bda14ed71]
+- Updated dependencies [f680410886]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [8b8e1bb571]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/core@2.0.0-beta.7
+  - @modern-js/prod-server@2.0.0-beta.7
+  - @modern-js/builder-webpack-provider@2.0.0-beta.7
+  - @modern-js/builder-plugin-node-polyfill@2.0.0-beta.7
+  - @modern-js/utils@2.0.0-beta.7
+  - @modern-js/plugin-lint@2.0.0-beta.7
+  - @modern-js/types@2.0.0-beta.7
+  - @modern-js/builder@2.0.0-beta.7
+  - @modern-js/builder-shared@2.0.0-beta.7
+  - @modern-js/builder-plugin-esbuild@2.0.0-beta.7
+  - @modern-js/plugin-data-loader@2.0.0-beta.7
+  - @modern-js/plugin-i18n@2.0.0-beta.7
+  - @modern-js/new-action@2.0.0-beta.7
+  - @modern-js/server@2.0.0-beta.7
+  - @modern-js/node-bundle-require@2.0.0-beta.7
+  - @modern-js/plugin@2.0.0-beta.7
+  - @modern-js/upgrade@2.0.0-beta.7
+
 ## 2.0.0-beta.6
 
 ### Major Changes

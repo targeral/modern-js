@@ -1,4 +1,4 @@
-export type JSONPrimitive = string | number | boolean | null;
+export type JSONPrimitive = string | number | boolean | null | undefined;
 
 export type JSONArray = Array<JSONValue>;
 
@@ -22,3 +22,5 @@ export type ChainedConfig<Config, Utils = unknown> = ArrayOrNot<
 export type DeepReadonly<T> = keyof T extends never
   ? T
   : { readonly [k in keyof T]: DeepReadonly<T[k]> };
+
+export type FileFilterUtil = (items: ArrayOrNot<string | RegExp>) => void;

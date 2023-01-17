@@ -19,24 +19,26 @@ import { useModuleApps } from '@modern-js/plugin-garfish/runtime';
 ## 示例
 
 需要先配置微前端子应用信息。
+
 import EnableMicroFrontend from '@site-docs/components/enable-micro-frontend.md';
 
 <EnableMicroFrontend />
-
 
 ```tsx title=App.tsx
 function App() {
   const { Home, Contact } = useModuleApps();
 
-  return <div>
-    Master APP
-    <Route exact path='/home'>
-      <Home />
-    </Route>
-    <Route exact path='/home'>
-      <Contact />
-    </Route>
-  </div>;
+  return (
+    <div>
+      Master APP
+      <Route exact path="/home">
+        <Home />
+      </Route>
+      <Route exact path="/home">
+        <Contact />
+      </Route>
+    </div>
+  );
 }
 
 defineConfig(App, {
@@ -44,25 +46,25 @@ defineConfig(App, {
     apps: [
       {
         // name 区分大小写，name 提供的是什么 useModuleApps 返回的就是什么
-        name: "Home",
-        entry: "http://127.0.0.1:8081/"
+        name: 'Home',
+        entry: 'http://127.0.0.1:8081/',
       },
       {
-          name: "Contact",
-          entry: "http://localhost:8082"
-      }
-    ]
-  }
-})
+        name: 'Contact',
+        entry: 'http://localhost:8082',
+      },
+    ],
+  },
+});
 ```
 
 通过 `useModuleApps()` 获取到 `Home` 和 `Contact` 子应用组件（名称和配置里的 `name` 字段对应），之后就可以像使用普通的 React 组件一样去加载子应用。
-
 
 ### 集中式路由
 
 **集中式路由** 是将子应用的激活路由集中配置的方式。我们给子应用列表信息添加 `activeWhen` 字段来启用 **集中式路由**。
 
+import MicroRuntimeConfig from '@site-docs/components/micro-runtime-config.md';
 
 <MicroRuntimeConfig />
 
@@ -74,9 +76,11 @@ import { useModuleApp } from '@modern-js/plugin-runtime';
 function App() {
   const { MApp } = useModuleApps();
 
-  return <div>
-    <MApp />
-  </div>
+  return (
+    <div>
+      <MApp />
+    </div>
+  );
 }
 
 defineConfig(App, {
@@ -84,22 +88,21 @@ defineConfig(App, {
     apps: [
       {
         // name 区分大小写，name 提供的是什么 useModuleApps 返回的就是什么
-        name: "Dashboard",
+        name: 'Dashboard',
         activeWhen: '/dashboard',
-        entry: "http://127.0.0.1:8081/"
+        entry: 'http://127.0.0.1:8081/',
       },
       {
-        name: "TableList",
+        name: 'TableList',
         activeWhen: '/table',
-        entry: "http://localhost:8082"
-      }
-    ]
-  }
-})
+        entry: 'http://localhost:8082',
+      },
+    ],
+  },
+});
 ```
 
 这样启动应用后，访问 `/dashboard` 路由，会渲染 `Dashboard` 子应用，访问 `/table` 路由，会渲染 `TableList` 子应用。
-
 
 ## 加载动画
 
@@ -109,24 +112,26 @@ defineConfig(App, {
 function App() {
   const { Home } = useModuleApps();
 
-  return <div>
-    Master APP
-    <Route exact path='/home'>
-      <Home
-        loadable={{
-          loading: ({ pastDelay, error }: any) => {
-            if (error) {
-              console.error(error);
-              return <div>error: {error?.message}</div>;
-            } else if (pastDelay) {
-              return <div>loading</div>;
-            } else {
-              return null;
-            }
-          },
-        }}
-      />
-    </Route>
-  </div>;
+  return (
+    <div>
+      Master APP
+      <Route exact path="/home">
+        <Home
+          loadable={{
+            loading: ({ pastDelay, error }: any) => {
+              if (error) {
+                console.error(error);
+                return <div>error: {error?.message}</div>;
+              } else if (pastDelay) {
+                return <div>loading</div>;
+              } else {
+                return null;
+              }
+            },
+          }}
+        />
+      </Route>
+    </div>
+  );
 }
 ```

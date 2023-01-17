@@ -1,10 +1,14 @@
+---
+sidebar_position: 2
+---
+
 # 命令预览
 
 模块工程项目可以使用的命令：
 
 ## `modern build`
 
-``` bash
+```bash
 Usage: modern build [options]
 
 构建模块命令
@@ -22,7 +26,7 @@ Options:
 当想要启动项目构建的时候，可以执行 `modern build` 命令。在使用这个命令的时候，我们可以：
 
 - 当想要以观察模式启动构建时，使用 `--watch` 选项。
-- 当想要指定项目编译读取的 TypeScript 配置文件的路径时，使用 `build --tsconfig ./path/config.json` 选项。使用该选项后，会覆盖所有 [`buildConfig`](/zh/api/build-config) 里 [`dts.tsconfigPath`](/zh/api/build-config) 配置。
+- 当想要指定项目编译读取的 TypeScript 配置文件的路径时，使用 `build --tsconfig ./path/config.json` 选项。使用该选项后，会覆盖所有 [`buildConfig`](/api/config/build-config) 里 [`dts.tsconfigPath`](/api/config/build-config) 配置。
 - 当需要关闭项目的 DTS 类型文件生成和类型检查行为时，可以使用 `--no-dts` 选项。**注意：类型文件的生成依赖类型检查的结果。如果关闭了类型检查，那么类型文件也不会生成**。
 - 当需要关闭自动清除产物输出目录的行为时，可以使用 `--no-clear` 选项。
 
@@ -34,7 +38,7 @@ Options:
 
 ## `modern new`
 
-``` bash
+```bash
 Usage: modern new [options]
 
 模块化工程方案中执行生成器
@@ -55,11 +59,11 @@ Options:
 - Tailwind CSS 支持
 - Modern.js Runtime API
 
-关于这些功能，可以通过[【使用微生成器】](/zh/guide/use-micro-generator) 章节了解更多。
+关于这些功能，可以通过[【使用微生成器】](/guide/basic/use-micro-generator) 章节了解更多。
 
 ## `modern dev`
 
-``` bash
+```bash
 Usage: modern dev [options]
 
 本地开发命令
@@ -71,24 +75,24 @@ Commands:
 [dev-tools-subCommand]
 ```
 
-模块工程解决方案提供了使用调试工具的能力，可以通过 `modern dev` 命令来启动。不过要注意的是，默认情况下是没有提供调试相关的插件，因此此时执行 `modern dev` 会提示： *"No dev tools found available"*。
+模块工程解决方案提供了使用调试工具的能力，可以通过 `modern dev` 命令来启动。不过要注意的是，默认情况下是没有提供调试相关的插件，因此此时执行 `modern dev` 会提示： _"No dev tools found available"_。
 
 目前官方支持的调试工具有 [Storybook](https://storybook.js.org/)，因此在你执行 `modern new` 命令开启它后，就可以执行 `modern dev` 或者 `modern dev storybook` 执行它。
 
 ## `modern test`
 
-``` bash
+```bash
 Usage: modern test [options]
 
 Options:
   -h, --help  display help for command
 ```
-`modern test` 命令会自动将 `src/tests/*.test.(js|ts|jsx|tsx)` 文件当做测试用例运行。
 
+`modern test` 命令会自动将 `src/tests/*.test.(js|ts|jsx|tsx)` 文件当做测试用例运行。
 
 ## `modern lint`
 
-``` bash
+```bash
 Usage: modern lint [options] [...files]
 
 lint and fix source files
@@ -104,7 +108,7 @@ Options:
 
 ## `modern change`
 
-``` bash
+```bash
 Usage: modern change [options]
 
 创建变更集
@@ -119,7 +123,7 @@ Options:
 
 ## `modern pre`
 
-``` bash
+```bash
 Usage: modern pre [options] <enter|exit> [tag]
 
 进入和退出预发布模式
@@ -132,7 +136,7 @@ Options:
 
 ## `modern bump`
 
-``` bash
+```bash
 Usage: modern bump [options]
 
 使用变更集自动更新发布版本和变更日志
@@ -148,7 +152,7 @@ Options:
 
 ## `modern release`
 
-``` bash
+```bash
 Usage: modern release [options]
 
 发布 npm 包
@@ -166,7 +170,7 @@ Options:
 
 ## `modern gen-release-note`
 
-``` bash
+```bash
 Usage: modern gen-release-note [options]
 
 根据当前仓库 changeset 信息生成 Release Note
@@ -185,7 +189,7 @@ Options:
 
 ## `modern upgrade`
 
-``` bash
+```bash
 Usage: modern upgrade [options]
 
 升级 Modern.js 到最新版本
@@ -200,5 +204,3 @@ Options:
 `modern upgrade` 命令，用于升级项目 Modern.js 相关依赖至最新版本。
 
 在项目根目录下执行命令 `npx modern upgrade`，会默认将当前执行命令项目的 `package.json` 中的 Modern.js 相关依赖更新至最新版本。
-
-命令在 `@modern-js/module-tools` 版本 **>= 1.17.0** 提供，之前版本可使用 `npx @modern-js/upgrade` 进行升级。

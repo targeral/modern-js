@@ -1,5 +1,45 @@
 # @modern-js/mwa-generator
 
+## 3.0.3
+
+### Patch Changes
+
+- 6562578: chore: optimize the capitalization of plugin names
+
+  chore: 规范引用插件时的命名格式，统一使用 camelCase 代替 PascalCase
+
+## 3.0.2
+
+## 3.0.1
+
+## 3.0.0
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- d4a456659b: chore: rename plugin-jarvis to plugin-lint
+
+  chore: 重命名 plugin-jarvis 为 plugin-lint
+
+- 56ef2dc: feat: mwa generator template remove runtime.state config
+
+  feat: mwa 生成器模板默认关闭 runtime.state 配置
+
+## 3.0.0-beta.6
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- d4a456659b: chore: rename plugin-jarvis to plugin-lint
+
+  chore: 重命名 plugin-jarvis 为 plugin-lint
+
 ## 3.0.0-beta.5
 
 ### Major Changes

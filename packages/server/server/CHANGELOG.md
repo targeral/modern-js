@@ -1,5 +1,76 @@
 # @modern-js/server
 
+## 2.1.0
+
+### Patch Changes
+
+- 3d0fb38: fix: remove the prebundle for data loader
+  fix: 移除 data loader 的预打包
+- Updated dependencies [837620c]
+- Updated dependencies [8a9482c]
+  - @modern-js/utils@2.1.0
+  - @modern-js/prod-server@2.1.0
+  - @modern-js/server-utils@2.1.0
+  - @modern-js/types@2.1.0
+
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies [39988b2]
+  - @modern-js/types@2.0.2
+  - @modern-js/prod-server@2.0.2
+  - @modern-js/utils@2.0.2
+  - @modern-js/server-utils@2.0.2
+
+## 2.0.1
+
+### Patch Changes
+
+- @modern-js/prod-server@2.0.1
+- @modern-js/server-utils@2.0.1
+- @modern-js/types@2.0.1
+- @modern-js/utils@2.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- Updated dependencies [c9e800d39a]
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [6bda14ed71]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [8b8e1bb571]
+- Updated dependencies [ffb2ed4]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/prod-server@2.0.0
+  - @modern-js/utils@2.0.0
+  - @modern-js/types@2.0.0
+  - @modern-js/server-utils@2.0.0
+
+## 2.0.0-beta.7
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- Updated dependencies [c9e800d39a]
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [6bda14ed71]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [8b8e1bb571]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/prod-server@2.0.0-beta.7
+  - @modern-js/utils@2.0.0-beta.7
+  - @modern-js/types@2.0.0-beta.7
+  - @modern-js/server-utils@2.0.0-beta.7
+
 ## 2.0.0-beta.6
 
 ### Major Changes

@@ -4,7 +4,7 @@ import LoadingSvg from './assets/loading.svg';
 import type { MatchResultItem, PageSearcher } from './logic/search';
 import styles from './index.module.scss';
 import { SuggestionContent } from './Suggestion';
-import { usePageData } from '@/runtime';
+import { formatText } from './logic/util';
 
 const KEY_CODE = {
   ARROW_UP: 'ArrowUp',
@@ -30,7 +30,6 @@ export function Search(props: SearchOptions) {
   const initPageSearcherPromiseRef = useRef<Promise<void>>();
   const [disableInput, setDisableInput] = useState(true);
   const searchInputRef = useRef<HTMLInputElement | null>(null);
-  const { siteData } = usePageData();
   // initializing or searching
   const showLoading = !initialized || searching;
   // 1. page searcher has been initialized and finish searching
@@ -45,7 +44,6 @@ export function Search(props: SearchOptions) {
         defaultLang,
         langs,
         langRoutePrefix,
-        pages: siteData.pages,
       });
       await psRef.current.init();
       setInitialized(true);
@@ -117,7 +115,7 @@ export function Search(props: SearchOptions) {
     setDisableInput(false);
   }, []);
   return (
-    <div flex="" items-center="~" relative="" mr="2" font="semibold">
+    <div flex="~" align="items-center" pos="relative" m="r-2" font="semibold">
       <SearchSvg
         w="5"
         h="5"
@@ -155,55 +153,55 @@ export function Search(props: SearchOptions) {
         w="10"
         h="6"
         p="x-1.5"
-        rounded="md"
-        border="1px solid gray-light-3"
+        border="1px solid gray-light-3 rounded-md"
         text="xs gray-light-3"
         flex="~"
-        items-center="~"
+        align="items-center"
         justify="around"
-        className={styles.searchCommand}
+        className={`${styles.searchCommand}`}
       >
         <span>⌘</span>
         <span>K</span>
       </div>
       {focused && query && (
         <ul
-          pos="fixed sm:absolute top-12 sm:top-8 left-0"
+          pos="fixed sm:absolute top-12 sm:top-8 right--10"
           z="60"
-          border-1=""
           p="2"
           list="none"
-          bg="bg-default"
-          className="w-100% sm:min-w-500px sm:max-w-700px"
+          bg="white"
+          className="w-full sm:min-w-600px sm:max-w-800px"
+          style={{ border: '1px solid var(--modern-c-divider-light)' }}
         >
           {/* Show the suggestions */}
           {suggestions.map((item, index) => (
             <li
               key={item.title}
-              rounded="sm"
               cursor="pointer"
-              w="100%"
-              className="border-collapse"
+              w="full"
+              className="border-collapse rounded-sm"
             >
-              <a block="" href={item.link} className="whitespace-normal">
-                <div table="" w="100%" className="border-collapse">
+              <a block="~" href={item.link} className="whitespace-normal">
+                <div table="~" w="full" className="border-collapse">
                   <div
-                    w="35%"
-                    border-1=""
                     border-left="none"
-                    table-cell=""
-                    align="middle right"
+                    display="table-cell"
                     p="1.2"
                     text="sm right [#2c3e50]"
                     font="semibold"
-                    className={`bg-[#f5f5f5] border-[#eaecef]`}
+                    className={`bg-[#f5f5f5] align-middle`}
+                    style={{
+                      borderBottom: '1px solid var(--modern-c-divider-light)',
+                      width: '35%',
+                    }}
                   >
-                    {item.title}
+                    {formatText(item.title)}
                   </div>
                   <SuggestionContent
                     suggestion={item}
                     query={query}
                     isCurrent={index === currentSuggestionIndex}
+                    isFirst={index === 0}
                   />
                 </div>
               </a>
@@ -211,7 +209,7 @@ export function Search(props: SearchOptions) {
           ))}
           {/* Show the not found info */}
           {showNotFound && (
-            <li flex="center">
+            <li flex="~ center">
               <div p="2" text="sm #2c3e50">
                 No results found
               </div>
@@ -219,7 +217,7 @@ export function Search(props: SearchOptions) {
           )}
           {/* Show the loading info */}
           {showLoading && (
-            <li flex="center">
+            <li flex="~ center">
               <div p="2" text="sm">
                 <LoadingSvg />
               </div>

@@ -1,5 +1,67 @@
 # @modern-js/core
 
+## 2.1.0
+
+### Patch Changes
+
+- 6562578: chore: optimize the capitalization of plugin names
+
+  chore: 规范引用插件时的命名格式，统一使用 camelCase 代替 PascalCase
+
+- Updated dependencies [837620c]
+- Updated dependencies [8a9482c]
+  - @modern-js/builder-plugin-swc@2.1.0
+  - @modern-js/utils@2.1.0
+
+## 2.0.2
+
+### Patch Changes
+
+- @modern-js/utils@2.0.2
+- @modern-js/builder-plugin-swc@2.0.2
+
+## 2.0.1
+
+### Patch Changes
+
+- @modern-js/builder-plugin-swc@2.0.1
+- @modern-js/utils@2.0.1
+
+## 2.0.0
+
+### Minor Changes
+
+- bbe4c4ab64: feat: add @modern-js/plugin-swc
+
+  feat: 新增 @modern-js/plugin-swc 插件
+
+### Patch Changes
+
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [bd432a1]
+- Updated dependencies [d1afd92]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [ffb2ed4]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/utils@2.0.0
+  - @modern-js/builder-plugin-swc@2.0.0
+
+## 2.0.0-beta.7
+
+### Minor Changes
+
+- bbe4c4ab64: feat: add @modern-js/plugin-swc
+
+  feat: 新增 @modern-js/plugin-swc 插件
+
+### Patch Changes
+
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/utils@2.0.0-beta.7
+  - @modern-js/builder-plugin-swc@2.0.0-beta.7
+
 ## 2.0.0-beta.6
 
 ### Minor Changes

@@ -5,6 +5,7 @@ import { SearchOptions } from '..';
 import { backTrackHeaders, normalizeContent } from './util';
 import { normalizeHref, withBase } from '@/runtime';
 import { PageBasicInfo } from '@/shared/types';
+import { SEARCH_INDEX_JSON } from '@/shared/utils';
 
 const THRESHOLD_CONTENT_LENGTH = 100;
 
@@ -16,10 +17,11 @@ export interface Header {
 
 interface PageDataForSearch {
   title: string;
-  headers: string[];
   content: string;
   path: string;
   rawHeaders: Header[];
+  headers: string[];
+  headerStr: string;
 }
 
 interface CommonMatchResult {
@@ -59,16 +61,16 @@ export class PageSearcher {
 
   #langs: string[] = [];
 
-  #pages: PageBasicInfo[];
+  #pages?: PageBasicInfo[];
 
-  constructor(options: SearchOptions & { pages: PageBasicInfo[] }) {
+  constructor(options: SearchOptions) {
     this.#langRoutePrefix = options.langRoutePrefix;
     this.#defaultLang = options.defaultLang;
     this.#langs = options.langs;
-    this.#pages = options.pages;
   }
 
   async init(options: CreateOptions = {}) {
+    this.#pages = await this.#getPages();
     const pages = this.#pages.filter(page => {
       // Hit the default language route
       if (this.#langRoutePrefix === '/') {
@@ -82,6 +84,7 @@ export class PageSearcher {
         return page.routePath.startsWith(withBase(this.#langRoutePrefix));
       }
     });
+
     const pagesForSearch: PageDataForSearch[] = pages
       .filter(page => {
         return !WHITE_PAGE_TYPES.includes(
@@ -89,13 +92,15 @@ export class PageSearcher {
         );
       })
       .map(page => {
+        const headers = (page.toc || []).map((header: Header) => header.text);
         return {
           title:
             page.title ??
             page.frontmatter?.title ??
             page.routePath.split('/').pop() ??
             '',
-          headers: (page.toc || []).map((header: Header) => header.text),
+          headers,
+          headerStr: headers.join(' '),
           content: normalizeContent(page.content || ''),
           path: page.routePath,
           rawHeaders: page.toc || [],
@@ -116,7 +121,7 @@ export class PageSearcher {
       async: true,
       doc: {
         id: 'path',
-        field: ['title', 'headers', 'content'],
+        field: ['title', 'headerStr', 'content'],
       },
       ...options,
     };
@@ -168,6 +173,15 @@ export class PageSearcher {
     });
     const res = uniqBy(matchedResult, 'link');
     return res;
+  }
+
+  async #getPages(): Promise<PageBasicInfo[]> {
+    const result = await fetch(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error __ASSET_PREFIX__ is injected by webpack
+      `${__ASSET_PREFIX__}/static/${SEARCH_INDEX_JSON}`,
+    );
+    return result.json();
   }
 
   #matchHeader(

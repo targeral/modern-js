@@ -26,7 +26,6 @@ Modern.js 支持了业界流行的约定式路由模式：**嵌套路由**，使
 +------------------+                  +-----------------+
 ```
 
-
 ### 路由文件约定
 
 在`routes/` 目录下，目录名会作为路由 url 的映射，Modern.js 有两个文件约定 `layout.[jt]sx` 和 `page.[jt]sx`（后面简写为 `.tsx`）。这两个文件决定了应用的布局层次，其中 `layout.tsx` 中作为布局组件，`page.tsx` 作为内容组件，是整条路由的叶子节点（一条路由有且仅有一个叶子节点，且必须以叶子节点结尾）。
@@ -42,6 +41,7 @@ Modern.js 支持了业界流行的约定式路由模式：**嵌套路由**，使
 ```
 
 会产出下面两条路由：
+
 - `/`
 - `/user`
 
@@ -91,8 +91,8 @@ export default () => {
     <>
       <Outlet></Outlet>
     </>
-  )
-}
+  );
+};
 ```
 
 :::note
@@ -122,6 +122,7 @@ export default () => {
 ```
 
 2. 当路由为 `/blog` 时，`routes/layout.tsx` 中的 `<Outlet>` 代表的是 `routes/blog/page.tsx` 中导出的组件，生成以下 UI 结构：
+
 ```tsx
 <Layout>
   <BlogPage />
@@ -165,7 +166,7 @@ export default () => {
 
 ### 无路径布局
 
-当目录名以 __ 开头时，对应的目录名不会转换为实际的路由路径，例如以下文件目录：
+当目录名以 \_\_ 开头时，对应的目录名不会转换为实际的路由路径，例如以下文件目录：
 
 ```
 .
@@ -180,7 +181,7 @@ export default () => {
     └── page.tsx
 ```
 
-Modern.js 会生成 `/login` 和 `/sign` 两条路由，`__auth/layout.tsx` 组件会作为 `login/page.tsx` 和 `signup/page.tsx` 的布局组件，但__auth 不会作为路由路径片段。
+Modern.js 会生成 `/login` 和 `/sign` 两条路由，`__auth/layout.tsx` 组件会作为 `login/page.tsx` 和 `signup/page.tsx` 的布局组件，但`__auth` 不会作为路由路径片段。
 
 当需要为某些类型的路由，做独立的布局，或是想要将路由做归类时，这一功能非常有用。
 
@@ -202,11 +203,11 @@ Modern.js 会生成 `/login` 和 `/sign` 两条路由，`__auth/layout.tsx` 组�
 
 ```tsx
 <RootLayout>
-   <UserProfileEdit />   // routes/user.profile.[id].edit/page.tsx
+  <UserProfileEdit /> // routes/user.profile.[id].edit/page.tsx
 </RootLayout>
 ```
 
-### Loading
+### (WIP)Loading
 
 `routes/` 下每一层目录中，开发者可以创建 `loading.tsx` 文件，默认导出一个 `<Loading>` 组件。
 
@@ -225,6 +226,7 @@ Modern.js 会生成 `/login` 和 `/sign` 两条路由，`__auth/layout.tsx` 组�
 ```
 
 当定义 `loading.tsx` 时，就相当于以下布局：
+
 ```tsx title="当路由为 / 时"
 <Layout>
   <Suspense fallback={<Loading/>}>
@@ -235,7 +237,7 @@ Modern.js 会生成 `/login` 和 `/sign` 两条路由，`__auth/layout.tsx` 组�
 
 ```tsx title="当路由为 /blog 时"
 <Layout>
-  <Suspense fallback={<Loading/>}>
+  <Suspense fallback={<Loading />}>
     <BlogPage />
   </Suspense>
 </Layout>
@@ -243,11 +245,12 @@ Modern.js 会生成 `/login` 和 `/sign` 两条路由，`__auth/layout.tsx` 组�
 
 ```tsx title="当路由为 /blog/123 时"
 <Layout>
-  <Suspense fallback={<Loading/>}>
+  <Suspense fallback={<Loading />}>
     <BlogIdPage />
   </Suspense>
 </Layout>
 ```
+
 :::info
 当目录的 layout 组件不存在时，该目录下的 loading 组件也不会生效。
 Modern.js 建议必须有根 layout 和根 loading。
@@ -256,7 +259,6 @@ Modern.js 建议必须有根 layout 和根 loading。
 当路由从 `/` 跳转到 `/blog` 时，如果 `blog/page` 组件的 JS Chunk 还未加载，则会先展示 `loading.tsx` 中导出的组件 UI。
 
 同理，当路由从 `/` 或者 `/blog` 跳转到 `/blog/123` 时，如果 `blog/[id]/page` 组件的 JS Chunk 还未加载，也会先展示 `loading.tsx` 中导出的组件 UI。
-
 
 ### 错误处理
 
@@ -267,6 +269,7 @@ Modern.js 建议必须有根 layout 和根 loading。
 `<ErrorBoundary>` 可以返回出错时的 UI 视图，当前层级未声明 `<ErrorBoundary>` 组件时，错误会向上冒泡到更上层的组件，直到被捕获或抛出错误。同时，当组件出错时，只会影响捕获到该错误的路由组件及子组件，其他组件的状态和视图不受影响，可以继续交互。
 
 <!-- Todo API 路由-->
+
 在 `<ErrorBoundary>` 组件内，可以使用 [useRouteError](/docs/apis/app/runtime/router/#useparams) 获取的错误的具体信息：
 
 ```tsx
@@ -275,37 +278,119 @@ const ErrorBoundary = () => {
   const error = useRouteError();
   return (
     <div>
-        <h1>{error.status}</h1>
-        <h2>{error.message}</h2>
+      <h1>{error.status}</h1>
+      <h2>{error.message}</h2>
     </div>
-  )
-}
+  );
+};
 export default ErrorBoundary;
 ```
+
+### 运行时配置
+
+在每个根 `Layout` 组件中(`routes/layout.ts`)，可以动态地定义应用运行时配置：
+
+```ts title="src/routes/layout.tsx"
+// 定义运行时配置
+import type { AppConfig } from '@modern-js/runtime';
+
+export const config = (): AppConfig => {
+  return {
+    router: {
+      supportHtml5History: false
+    }
+  }
+};
+```
+
+### 渲染前的钩子
+
+在有些场景下，需要在应用渲染前做一些操作，可以在 `routes/layout.tsx` 中定义 `init` 钩子，`init` 在客户端和服务端均会执行，基本使用示例如下：
+
+```ts title="src/routes/layout.tsx"
+import type { RuntimeContext } from '@modern-js/runtime';
+
+export const init = (context: RuntimeContext) => {
+  // do something
+};
+```
+
+通过 `init` 钩子可以挂载一些全局的数据，在应用的其他地方可以访问 `runtimeContext` 变量：
+
+:::note
+该功能在应用需要页面前置的数据、自定义数据注入或是框架迁移（如 Next.js）时会非常有用。
+:::
+
+```ts title="src/routes/layout.tsx"
+import {
+  RuntimeContext,
+} from '@modern-js/runtime';
+
+export const init = (context: RuntimeContext) => {
+  return {
+    message: 'Hello World',
+  }
+}
+```
+
+```tsx title="src/routes/page.tsx"
+import { useRuntimeContext } from '@modern-js/runtime';
+
+export default () => {
+  const { context } = useRuntimeContext();
+  const { message } = context.getInitData();
+
+  return <div>{message}</div>;
+}
+```
+
+配合 SSR 功能时，浏览器端可以获取到 SSR 时 `init` 返回的数据，开发者可以自行判断是否要在浏览器端重新获取数据来覆盖 SSR 数据，例如：
+
+```tsx title="src/routes/layout.tsx"
+import {
+  RuntimeContext,
+} from '@modern-js/runtime';
+
+export const init = (context: RuntimeContext) => {
+  if (process.env.JUPITER_TARGET === 'node') {
+    return {
+      message: 'Hello World By Server',
+    }
+  } else {
+    const { context } = runtimeContext;
+    const data = context.getInitData();
+    // 如果没有获取到期望的数据
+    if (!data.message) {
+      return {
+        message: 'Hello World By Client'
+      }
+    }
+  }
+}
+```
+
 
 ## 自控式路由
 
 以 `src/App.tsx` 为约定的入口，Modern.js 不会多路由做额外的操作，开发者可以自行使用 React Router 6 的 API 进行开发，例如：
 
-```tsx
-import { Route, Routes, BrowserRouter } from '@modern-js/runtime/router';
-import { StaticRouter } from '@modern-js/runtime/router/server';
+```ts title="src/App.tsx"
+import { BrowserRouter, Route, Routes } from '@modern-js/runtime/router';
 
-const Router = typeof window === 'undefined' ? StaticRouter : BrowserRouter;
 export default () => {
   return (
-    <Router location={context.request.pathname}>
+    <BrowserRouter>
       <Routes>
         <Route index element={<div>index</div>} />
         <Route path="about" element={<div>about</div>} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 };
 ```
 
 :::note
-在自控式路由下，开发者如果希望在 SSR 中使用 React Router 6 中 [Loader API](https://reactrouter.com/en/main/hooks/use-loader-data#useloaderdata) 的能力会相对复杂，推荐直接使用约定式路由。Modern.js 已经为你封装好了一切。
+Modern.js 默认对约定式路由做了一系列资源加载及渲染上的优化，并且提供了开箱即用的 SSR 能力，而这些能力，在使用自控路由时，都需要开发者自行封装，推荐开发者使用约定式路由。
 :::
 
 ## 其他路由方案
@@ -316,8 +401,8 @@ export default () => {
 export default defineConfig({
   runtime: {
     router: true,
-  }
-})
+  },
+});
 ```
 
 Modern.js 从 `@modern-js/runtime/router` 命名空间暴露了 React Router 的 API 供开发者使用，保证开发者和 Modern.js 中使用同一份代码。另外，这种情况下，React Router 的代码会被打包到 JS 产物中。如果项目已经有自己的路由方案，或者不需要使用客户端路由，可以关闭这个功能。
@@ -326,6 +411,6 @@ Modern.js 从 `@modern-js/runtime/router` 命名空间暴露了 React Router 的
 export default defineConfig({
   runtime: {
     router: false,
-  }
-})
+  },
+});
 ```

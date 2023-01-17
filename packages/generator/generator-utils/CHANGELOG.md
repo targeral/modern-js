@@ -1,5 +1,64 @@
 # @modern-js/generator-utils
 
+## 3.0.3
+
+### Patch Changes
+
+- Updated dependencies [837620c]
+- Updated dependencies [4181b2d]
+- Updated dependencies [8a9482c]
+  - @modern-js/utils@2.1.0
+  - @modern-js/generator-common@3.0.3
+  - @modern-js/plugin-i18n@2.1.0
+
+## 3.0.2
+
+### Patch Changes
+
+- Updated dependencies [4568607]
+  - @modern-js/generator-common@3.0.2
+  - @modern-js/utils@2.0.2
+  - @modern-js/plugin-i18n@2.0.2
+
+## 3.0.1
+
+### Patch Changes
+
+- @modern-js/plugin-i18n@2.0.1
+- @modern-js/utils@2.0.1
+- @modern-js/generator-common@3.0.1
+
+## 3.0.0
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [ffb2ed4]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/utils@2.0.0
+  - @modern-js/plugin-i18n@2.0.0
+  - @modern-js/generator-common@3.0.0
+
+## 3.0.0-beta.6
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/utils@2.0.0-beta.7
+  - @modern-js/plugin-i18n@2.0.0-beta.7
+  - @modern-js/generator-common@3.0.0-beta.6
+
 ## 3.0.0-beta.5
 
 ### Major Changes

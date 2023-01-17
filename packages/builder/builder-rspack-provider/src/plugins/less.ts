@@ -2,62 +2,65 @@ import type { BuilderPlugin } from '../types';
 import {
   isUseCssSourceMap,
   LESS_REGEX,
-  setConfig,
+  FileFilterUtil,
 } from '@modern-js/builder-shared';
+import _ from '@modern-js/utils/lodash';
+import { getCompiledPath } from '../shared';
 
-export function PluginLess(): BuilderPlugin {
+export function builderPluginLess(): BuilderPlugin {
   return {
     name: 'builder-plugin-less',
     setup(api) {
-      api.modifyRspackConfig(async (rspackConfig, utils) => {
+      api.modifyBundlerChain(async (chain, utils) => {
         const config = api.getNormalizedConfig();
         const { applyOptionsChain } = await import('@modern-js/utils');
-        const { getCssLoaderUses } = await import('./css');
+        const { applyBaseCSSRule } = await import('./css');
 
         const getLessLoaderOptions = () => {
-          // todo: support addExcludes
+          const excludes: (RegExp | string)[] = [];
+
+          const addExcludes: FileFilterUtil = items => {
+            excludes.push(..._.castArray(items));
+          };
+
           const defaultLessLoaderOptions = {
-            lessOptions: { javascriptEnabled: true },
+            lessOptions: {
+              javascriptEnabled: true,
+            },
             sourceMap: isUseCssSourceMap(config),
-            implementation: utils.getCompiledPath('less'),
+            implementation: getCompiledPath('less'),
           };
           const mergedOptions = applyOptionsChain(
             defaultLessLoaderOptions,
             config.tools.less,
-            {},
+            { addExcludes },
           );
 
-          return mergedOptions;
+          return {
+            options: mergedOptions,
+            excludes,
+          };
         };
 
-        const cssLoaderUses = await getCssLoaderUses(
-          config,
-          api.context,
-          utils,
-        );
+        const rule = chain.module
+          .rule(utils.CHAIN_ID.RULE.LESS)
+          .test(LESS_REGEX)
+          .type('css');
 
-        const lessLoaderOptions = getLessLoaderOptions();
+        await applyBaseCSSRule(rule, config, api.context, utils);
 
-        const { default: lessLoader } = await import(
-          utils.getCompiledPath('@rspack/less-loader')
-        );
+        const { excludes, options } = getLessLoaderOptions();
 
-        setConfig(rspackConfig, 'module.rules', [
-          ...(rspackConfig.module?.rules || []),
-          {
-            name: 'less',
-            test: LESS_REGEX,
-            use: [
-              ...cssLoaderUses,
-              {
-                name: 'less',
-                loader: lessLoader,
-                options: lessLoaderOptions,
-              },
-            ],
-            type: 'css',
-          },
-        ]);
+        excludes.forEach(item => {
+          rule.exclude.add(item);
+        });
+
+        await applyBaseCSSRule(rule, config, api.context, utils);
+
+        rule
+          .use(utils.CHAIN_ID.USE.LESS)
+          .loader(getCompiledPath('@rspack/less-loader'))
+          .options(options);
       });
     },
   };

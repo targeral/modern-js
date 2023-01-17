@@ -13,20 +13,6 @@
   outline: none;
 }
 
-.modern-doc h1::before,
-.modern-doc h2::before,
-.modern-doc h3::before,
-.modern-doc h4::before,
-.modern-doc h5::before,
-.modern-doc h6::before {
-  display: block;
-  content: '';
-  margin-top: -56px;
-  height: 56px;
-  visibility: hidden;
-  pointer-events: none;
-}
-
 .modern-doc h1 {
   letter-spacing: -0.02em;
   line-height: 40px;
@@ -35,8 +21,7 @@
 }
 
 .modern-doc h2 {
-  margin: 48px 0 16px;
-  /* padding-top: 24px; */
+  margin: 56px 0 16px;
   letter-spacing: -0.02em;
   line-height: 32px;
   font-size: 24px;
@@ -47,6 +32,12 @@
   letter-spacing: -0.01em;
   line-height: 28px;
   font-size: 20px;
+}
+
+.modern-doc h4 {
+  margin: 24px 0 0;
+  line-height: 24px;
+  font-size: 16px;
 }
 
 .modern-doc .header-anchor {
@@ -474,7 +465,7 @@
 .modern-doc .modern-directive {
   border: 1px solid transparent;
   border-radius: 8px;
-  padding: 16px 16px 8px;
+  padding: 16px 20px 8px;
   line-height: 24px;
   font-size: 14px;
   margin: 16px 0;
@@ -497,7 +488,8 @@
   background-image: var(--modern-icon-tip);
 }
 
-.modern-doc .modern-directive.tip {
+.modern-doc .modern-directive.tip,
+.modern-doc .modern-directive.note {
   border-color: var(--modern-custom-block-tip-border);
   color: var(--modern-custom-block-tip-text);
   background-color: var(--modern-custom-block-tip-bg);

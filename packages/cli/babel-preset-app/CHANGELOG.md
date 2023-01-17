@@ -1,5 +1,59 @@
 # @modern-js/babel-preset-app
 
+## 2.1.0
+
+### Patch Changes
+
+- 837620c: fix: Disable detect tsconfig.json
+  fix: 禁用探测 tsconfig.json
+- Updated dependencies [837620c]
+- Updated dependencies [8a9482c]
+  - @modern-js/utils@2.1.0
+  - @modern-js/babel-preset-base@2.1.0
+
+## 2.0.2
+
+### Patch Changes
+
+- @modern-js/utils@2.0.2
+- @modern-js/babel-preset-base@2.0.2
+
+## 2.0.1
+
+### Patch Changes
+
+- @modern-js/babel-preset-base@2.0.1
+- @modern-js/utils@2.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [ffb2ed4]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/utils@2.0.0
+  - @modern-js/babel-preset-base@2.0.0
+
+## 2.0.0-beta.7
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Patch Changes
+
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/utils@2.0.0-beta.7
+  - @modern-js/babel-preset-base@2.0.0-beta.7
+
 ## 2.0.0-beta.6
 
 ### Major Changes

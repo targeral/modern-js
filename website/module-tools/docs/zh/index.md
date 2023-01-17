@@ -2,13 +2,13 @@
 pageType: home
 
 hero:
-  name: Module tools
+  name: Module Tools
   text: 模块工程解决方案
   tagline: 简单、强大、高性能的现代化npm包开发方案
   actions:
     - theme: brand
       text: 欢迎使用
-      link: /zh/guide/intro/welcome
+      link: /guide/intro/welcome
 
 features:
   - title: 'Esbuild: 高性能的JS Bundler'
@@ -27,3 +27,4 @@ features:
     details: 通过其插件扩展机制，你可以轻松的扩展Module tools的各项能力。
     icon: 🎨
 ---
+# index

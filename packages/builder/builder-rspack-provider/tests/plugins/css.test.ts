@@ -1,12 +1,13 @@
 import { expect, describe, it } from 'vitest';
 import { createBuilder } from '../helper';
-import { PluginCss } from '@/plugins/css';
-import { PluginLess } from '@/plugins/less';
+import { builderPluginCss } from '@/plugins/css';
+import { builderPluginLess } from '@/plugins/less';
+import { builderPluginSass } from '@/plugins/sass';
 
 describe('plugins/css', () => {
   it('should override browserslist of autoprefixer when using output.overrideBrowserslist config', async () => {
     const builder = await createBuilder({
-      plugins: [PluginCss()],
+      plugins: [builderPluginCss()],
       builderConfig: {
         output: {
           overrideBrowserslist: ['Chrome 80'],
@@ -21,7 +22,7 @@ describe('plugins/css', () => {
 
   it('should disable source map when output.disableSourceMap is true', async () => {
     const builder = await createBuilder({
-      plugins: [PluginCss()],
+      plugins: [builderPluginCss()],
       builderConfig: {
         output: {
           disableSourceMap: true,
@@ -38,7 +39,7 @@ describe('plugins/css', () => {
 
   it('should disable source map when output.disableSourceMap is css: true', async () => {
     const builder = await createBuilder({
-      plugins: [PluginCss()],
+      plugins: [builderPluginCss()],
       builderConfig: {
         output: {
           disableSourceMap: {
@@ -60,7 +61,7 @@ describe('plugins/css', () => {
     process.env.NODE_ENV = 'production';
 
     const builder = await createBuilder({
-      plugins: [PluginCss()],
+      plugins: [builderPluginCss()],
     });
 
     const {
@@ -74,7 +75,7 @@ describe('plugins/css', () => {
 
   it('should allow to custom cssModuleLocalIdentName', async () => {
     const builder = await createBuilder({
-      plugins: [PluginCss()],
+      plugins: [builderPluginCss()],
       builderConfig: {
         output: {
           cssModuleLocalIdentName: '[hash:base64]',
@@ -95,7 +96,7 @@ describe('plugins/css', () => {
 describe('plugins/less', () => {
   it('should add less-loader', async () => {
     const builder = await createBuilder({
-      plugins: [PluginLess()],
+      plugins: [builderPluginLess()],
       builderConfig: {
         tools: {
           less: {},
@@ -111,13 +112,65 @@ describe('plugins/less', () => {
 
   it('should add less-loader with tools.less', async () => {
     const builder = await createBuilder({
-      plugins: [PluginLess()],
+      plugins: [builderPluginLess()],
       builderConfig: {
         tools: {
           less: {
             lessOptions: {
               javascriptEnabled: false,
             },
+          },
+        },
+      },
+    });
+
+    const {
+      origin: { bundlerConfigs },
+    } = await builder.inspectConfig();
+    expect(bundlerConfigs[0]).toMatchSnapshot();
+  });
+
+  it('should add less-loader with excludes', async () => {
+    const builder = await createBuilder({
+      plugins: [builderPluginLess()],
+      builderConfig: {
+        tools: {
+          less(config, { addExcludes }) {
+            addExcludes(/node_modules/);
+          },
+        },
+      },
+    });
+
+    const {
+      origin: { bundlerConfigs },
+    } = await builder.inspectConfig();
+    expect(bundlerConfigs[0]).toMatchSnapshot();
+  });
+});
+
+describe('plugins/sass', () => {
+  it('should add sass-loader', async () => {
+    const builder = await createBuilder({
+      plugins: [builderPluginSass()],
+      builderConfig: {
+        tools: {},
+      },
+    });
+
+    const {
+      origin: { bundlerConfigs },
+    } = await builder.inspectConfig();
+    expect(bundlerConfigs[0]).toMatchSnapshot();
+  });
+
+  it('should add sass-loader with excludes', async () => {
+    const builder = await createBuilder({
+      plugins: [builderPluginSass()],
+      builderConfig: {
+        tools: {
+          sass(config, { addExcludes }) {
+            addExcludes(/node_modules/);
           },
         },
       },

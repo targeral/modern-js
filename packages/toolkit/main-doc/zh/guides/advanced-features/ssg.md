@@ -15,11 +15,14 @@ SSG（Static Site Generation）是一种基于数据与模板，在构建时渲�
 执行命令后，在 `modern.config.ts` 中注册 SSG 插件：
 
 ```ts title="modern.config.ts"
-import SSGPlugin from '@modern-js/plugin-ssg';
+import ssgPlugin from '@modern-js/plugin-ssg';
+
 // https://modernjs.dev/docs/apis/app/config
 export default defineConfig({
-  ...,
-  plugins: [..., SSGPlugin()],
+  output: {
+    ssg: true,
+  },
+  plugins: [..., ssgPlugin()],
 });
 ```
 
@@ -58,13 +61,13 @@ SSG 在**约定式路由**和**自控式路由**下的使用方式不同。
 
 ```jsx title="src/routes/page.tsx"
 export default () => {
-  return  <div>Index Page</div>
-}
+  return <div>Index Page</div>;
+};
 ```
 
 SSG 也是在 Node.js 环境渲染页面，因此我们可以在**开发阶段开启 SSR**，提前在暴露代码问题，验证 SSG 渲染效果：
 
-```typescript title="modern.config.ts"
+```ts title="modern.config.ts"
 export default defineConfig({
   server: {
     ssr: process.env.NODE_ENV === 'development',
@@ -86,36 +89,20 @@ export default defineConfig({
 
 例如有以下代码，包含多条路由，设置 `output.ssg` 为 `true` 时，默认只会渲染入口路由即 `/`：
 
-```tsx title="src/App.tsx"
-import { useRuntimeContext } from '@modern-js/runtime';
-import { Routes, Route, BrowserRouter } from '@modern-js/runtime/router';
-import { StaticRouter } from '@modern-js/runtime/router/server';
+import SelfRouteExample from '@site-docs/components/self-route-example.md';
 
-const Router = typeof window === 'undefined' ? StaticRouter : BrowserRouter;
-
-export default () => {
-  const { context } = useRuntimeContext();
-  return (
-    <Router location={context.request.pathname}>
-      <Routes>
-        <Route index element={<div>index</div>} />
-        <Route path="about" element={<div>about</div>} />
-      </Routes>
-    </Router>
-  );
-};
-```
+<SelfRouteExample />
 
 如果我们希望同时开启 `/about` 的 SSG 功能，可以配置 `output.ssg`，告知 Modern.js 开启指定路由的 SSG 功能。
 
-```typescript title="modern.config.ts"
+```ts title="modern.config.ts"
 export default defineConfig({
   output: {
     ssg: {
       routes: ['/', '/about'],
     },
   },
-})
+});
 ```
 
 执行 `pnpm run build` 与 `pnpm run serve` 后，访问 `http://localhost:8080/about`，在 Preview 视图中可以看到页面已经完成渲染。

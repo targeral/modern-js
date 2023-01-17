@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { SidebarGroup, SidebarItem } from 'shared/types';
+import { NormalizedSidebarGroup, SidebarItem } from 'shared/types';
 import { matchRoutes, useNavigate } from 'react-router-dom';
 import { routes } from 'virtual-routes';
 import { Link } from '../Link';
 import { isActive } from '../../logic';
+import ArrowRight from '../../assets/arrow-right.svg';
 import styles from './index.module.scss';
 import { removeBase, normalizeHref } from '@/runtime';
 
@@ -11,27 +12,27 @@ interface Props {
   isSidebarOpen?: boolean;
   pathname: string;
   langRoutePrefix: string;
-  sidebarData: (SidebarGroup | SidebarItem)[];
+  sidebarData: (NormalizedSidebarGroup | SidebarItem)[];
 }
 
-const SINGLE_MENU_ITEM_HEIGHT = 32;
+const SINGLE_MENU_ITEM_HEIGHT = 28;
 const MENU_ITEM_MARGIN = 4;
 const singleItemHeight = SINGLE_MENU_ITEM_HEIGHT + MENU_ITEM_MARGIN;
 
 interface SidebarItemProps {
   id: string;
-  item: SidebarItem | SidebarGroup;
+  item: SidebarItem | NormalizedSidebarGroup;
   depth: number;
   activeMatcher: (link: string) => boolean;
   collapsed?: boolean;
   setSidebarData: React.Dispatch<
-    React.SetStateAction<(SidebarGroup | SidebarItem)[]>
+    React.SetStateAction<(NormalizedSidebarGroup | SidebarItem)[]>
   >;
   preloadLink: (link: string) => void;
 }
 
 // Notice: we must compute the height of children here, otherwise the animation of collapse will not work
-const getHeight = (item: SidebarGroup | SidebarItem): number => {
+const getHeight = (item: NormalizedSidebarGroup | SidebarItem): number => {
   if ('items' in item) {
     return item.collapsed
       ? singleItemHeight
@@ -65,13 +66,17 @@ export function SidebarItemComp(props: SidebarItemProps) {
       <Link href={normalizeHref(item.link)} className={styles.menuLink}>
         <div
           m="t-1"
-          p="y-1.5 x-2"
+          p="y-1 x-2"
           block="~"
-          text="sm"
-          rounded="sm"
+          border="rounded-sm"
           font-medium="~"
           onMouseEnter={() => props.preloadLink(item.link)}
           className={active ? styles.menuItemActive : styles.menuItem}
+          style={{
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
         >
           {item.text}
         </div>
@@ -85,19 +90,21 @@ export function SidebarGroupComp(props: SidebarItemProps) {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const active = item.link && activeMatcher(item.link);
-  const { collapsed } = item as SidebarGroup;
+  const { collapsed, collapsible = true } = item as NormalizedSidebarGroup;
   const collapsibleIcon = (
     <div
-      className="i-carbon-chevron-right"
       cursor-pointer="~"
       style={{
         transition: 'transform 0.2s ease-out',
         transform: collapsed ? 'rotate(0deg)' : 'rotate(90deg)',
       }}
-    ></div>
+    >
+      <ArrowRight />
+    </div>
   );
 
-  const toggleCollapse = (): void => {
+  const toggleCollapse: React.MouseEventHandler<HTMLDivElement> = (e): void => {
+    e.stopPropagation();
     // update collapsed state
     setSidebarData(sidebarData => {
       const newSidebarData = [...sidebarData];
@@ -106,49 +113,66 @@ export function SidebarGroupComp(props: SidebarItemProps) {
       const root = newSidebarData[initialIndex];
       let current = root;
       for (const index of indexes) {
-        current = (current as SidebarGroup).items[index];
+        current = (current as NormalizedSidebarGroup).items[index];
       }
       if ('items' in current) {
         current.collapsed = !current.collapsed;
       }
       return newSidebarData;
     });
-
-    if (item.link) {
-      item.link && navigate(normalizeHref(item.link));
-    }
   };
 
   return (
-    <section key={item.text} block="~">
+    <section key={item.text} block="~" className="mt-1">
       <div
-        m="t-1"
-        p="r-1"
         flex="~"
         justify="between"
         items-start="~"
-        cursor-pointer="~"
+        cursor={collapsible ? 'pointer' : 'none'}
         className={`items-center ${
-          active ? styles.menuItemActive : styles.menuItem
+          // eslint-disable-next-line no-nested-ternary
+          active
+            ? styles.menuItemActive
+            : collapsible
+            ? styles.menuItem
+            : styles.menuItemStatic
         }`}
         onMouseEnter={() => item.link && props.preloadLink(item.link)}
-        onClick={toggleCollapse}
+        onClick={e => {
+          if (item.link) {
+            navigate(normalizeHref(item.link));
+            collapsed && toggleCollapse(e);
+          } else {
+            collapsible && toggleCollapse(e);
+          }
+        }}
       >
-        <h2 p="y-1.5 x-2" text="sm" font="semibold">
+        <h2 p="y-1 x-2" text="sm" font="semibold">
           {item.text}
         </h2>
-        {collapsibleIcon}
+        {collapsible && (
+          <div
+            p="2"
+            className={styles.collapseContainer}
+            onClick={toggleCollapse}
+          >
+            {collapsibleIcon}
+          </div>
+        )}
       </div>
       <div
         ref={containerRef}
         style={{
           transition: 'height 0.2s ease-in-out',
           overflow: 'hidden',
-          height: collapsed ? '0px' : `${getHeight(item) - singleItemHeight}px`,
+          height:
+            !collapsed || !collapsible
+              ? `${getHeight(item) - singleItemHeight}px`
+              : '0px',
         }}
       >
-        {(item as SidebarGroup)?.items?.map((item, index) => (
-          <div key={item.link} mb="last:0.5" ml="4">
+        {(item as NormalizedSidebarGroup)?.items?.map((item, index) => (
+          <div key={item.link} m="last:b-0.5 l-4">
             <SidebarItemComp
               {...props}
               item={item}
@@ -171,14 +195,17 @@ export function SideBar(props: Props) {
     sidebarData: rawSidebarData,
   } = props;
   const [sidebarData, setSidebarData] = useState<
-    (SidebarItem | SidebarGroup)[]
+    (SidebarItem | NormalizedSidebarGroup)[]
   >(rawSidebarData.filter(Boolean).flat());
   useEffect(() => {
     // 1. Update sidebarData when pathname changes
     // 2. For current active item, expand its parent group
     // Cache, Avoid redundant calculation
-    const matchCache = new WeakMap<SidebarGroup | SidebarItem, boolean>();
-    const match = (item: SidebarGroup | SidebarItem) => {
+    const matchCache = new WeakMap<
+      NormalizedSidebarGroup | SidebarItem,
+      boolean
+    >();
+    const match = (item: NormalizedSidebarGroup | SidebarItem) => {
       if (matchCache.has(item)) {
         return matchCache.get(item);
       }
@@ -196,7 +223,7 @@ export function SideBar(props: Props) {
       matchCache.set(item, false);
       return false;
     };
-    const traverse = (item: SidebarGroup | SidebarItem) => {
+    const traverse = (item: NormalizedSidebarGroup | SidebarItem) => {
       if ('items' in item) {
         item.items.forEach(traverse);
         if (match(item)) {
@@ -225,24 +252,22 @@ export function SideBar(props: Props) {
     }
   };
   return (
-    <aside
-      className={`${styles.sidebar} ${
-        isSidebarOpen ? styles.open : ''
-      } divider-right`}
-    >
-      <nav>
-        {sidebarData.map((item: SidebarGroup | SidebarItem, index: number) => (
-          <SidebarItemComp
-            id={String(index)}
-            item={item}
-            depth={0}
-            activeMatcher={activeMatcher}
-            key={item.text}
-            collapsed={(item as SidebarGroup).collapsed ?? true}
-            setSidebarData={setSidebarData}
-            preloadLink={preloadLink}
-          />
-        ))}
+    <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ''}`}>
+      <nav m="t-1">
+        {sidebarData.map(
+          (item: NormalizedSidebarGroup | SidebarItem, index: number) => (
+            <SidebarItemComp
+              id={String(index)}
+              item={item}
+              depth={0}
+              activeMatcher={activeMatcher}
+              key={item.text}
+              collapsed={(item as NormalizedSidebarGroup).collapsed ?? true}
+              setSidebarData={setSidebarData}
+              preloadLink={preloadLink}
+            />
+          ),
+        )}
       </nav>
     </aside>
   );

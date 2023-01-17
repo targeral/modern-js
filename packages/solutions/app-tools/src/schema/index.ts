@@ -12,6 +12,7 @@ const source = {
           properties: {
             entry: { type: ['string', 'array'] },
             disableMount: { type: 'boolean' },
+            customBootstrap: { type: 'string' },
           },
           additionalProperties: false,
         },
@@ -68,7 +69,7 @@ const server = {
   enableMicroFrontendDebug: { type: 'boolean' },
   watchOptions: { type: 'object' },
   compiler: { type: 'string' },
-  disableFrameworkExt: { type: 'boolean' },
+  enableFrameworkExt: { type: 'boolean' },
 };
 const tools = {
   tailwindcss: { type: 'object' },

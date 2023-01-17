@@ -55,15 +55,16 @@ interface SidebarItem {
 type Sidebar = Record<string, (SidebarGroup | SidebarItem)[]>;
 
 interface LocaleConfig {
-  sidebar: Sidebar;
+  sidebar?: Sidebar;
   lang: string;
+  label: string;
 }
 
 interface DocConfig {
   lang?: string;
   base?: string;
-  themeConfig: {
-    locales: LocaleConfig[];
+  themeConfig?: {
+    locales?: LocaleConfig[];
   };
 }
 
@@ -94,7 +95,10 @@ const extractExtension = (str: string) => {
 export interface Options {
   root: string;
   categories: string[];
+  collapsed?: boolean;
 }
+
+const DEFAULT_POSITION = Infinity;
 
 export async function initFiles(paths: string[], userRoot: string) {
   return Promise.all(
@@ -149,6 +153,12 @@ export async function initAllCategories(
     files.forEach(file => {
       if (dirname(file.path) === category.path) {
         category.children!.push(file);
+        if (file.title === category.meta?.label) {
+          category.meta.link = {
+            type: 'doc',
+            id: extractExtension(file.path),
+          };
+        }
       }
     });
 
@@ -160,8 +170,10 @@ export async function initAllCategories(
     }
 
     category.children.sort((a, b) => {
-      const positionA = a.meta?.position || a.meta?.sidebar_position || 0;
-      const positionB = b.meta?.position || b.meta?.sidebar_position || 0;
+      const positionA =
+        a.meta?.position || a.meta?.sidebar_position || DEFAULT_POSITION;
+      const positionB =
+        b.meta?.position || b.meta?.sidebar_position || DEFAULT_POSITION;
       return positionA - positionB;
     });
   });
@@ -195,8 +207,10 @@ export function getRootCategories(
     });
 
     category.children.sort((a, b) => {
-      const positionA = a.meta?.position || a.meta?.sidebar_position || 0;
-      const positionB = b.meta?.position || b.meta?.sidebar_position || 0;
+      const positionA =
+        a.meta?.position ?? a.meta?.sidebar_position ?? DEFAULT_POSITION;
+      const positionB =
+        b.meta?.position ?? b.meta?.sidebar_position ?? DEFAULT_POSITION;
       return positionA - positionB;
     });
 
@@ -208,7 +222,11 @@ export function getRootCategories(
  * The plugin is used to generate sidebar automatically.
  */
 export function pluginAutoSidebar(options: Options) {
-  const { root: userRoot, categories: rootCategories } = options;
+  const {
+    root: userRoot,
+    categories: rootCategories,
+    collapsed: userCollapsed,
+  } = options;
   const paths = sync('**/*.{md,mdx,json}', {
     cwd: userRoot,
   });
@@ -217,7 +235,11 @@ export function pluginAutoSidebar(options: Options) {
     item: Category | File,
   ): SidebarGroup | SidebarItem => {
     if ('children' in item) {
-      const { label, link, collapsed = DEFAULT_COLLAPSED } = item.meta!;
+      const {
+        label,
+        link,
+        collapsed = userCollapsed ?? DEFAULT_COLLAPSED,
+      } = item.meta!;
       return {
         text: label || '默认',
         link: link?.id,
@@ -267,14 +289,22 @@ export function pluginAutoSidebar(options: Options) {
             );
           });
         }
-        const extractLang = (p: string) =>
-          removeLeadingSlash(p).replace(new RegExp(`^${defaultLang}`), '');
+        const withLang = (p: string) => {
+          const cleanPath = removeLeadingSlash(p);
+          if (isDefaultLang) {
+            return cleanPath.replace(new RegExp(`^${defaultLang}`), '');
+          } else if (cleanPath.startsWith(lang)) {
+            return addLeadingSlash(cleanPath);
+          } else {
+            return `/${lang}${addLeadingSlash(p)}`;
+          }
+        };
         const normalizeLink = (item: SidebarGroup | SidebarItem) => {
           if ('items' in item) {
             item.items.forEach(child => normalizeLink(child));
           }
           if (item.link) {
-            item.link = withBase(extractLang(item.link), base).replace(
+            item.link = withBase(withLang(item.link), base).replace(
               /index$/,
               '',
             );
@@ -291,6 +321,7 @@ export function pluginAutoSidebar(options: Options) {
           .forEach(item => normalizeLink(item));
         locale.sidebar = sidebar;
       });
+
       return docConfig;
     },
   };

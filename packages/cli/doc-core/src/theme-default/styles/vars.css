@@ -62,10 +62,28 @@
 
   --modern-c-blue: #0095ff;
   --modern-c-blue-light: #00aaff;
-  --modern-c-blue-lighter: #00bfff;
+  --modern-c-blue-lighter: #ecf4ff;
   --modern-c-blue-dark: #0077ff;
-  --modern-c-blue-darker: #0055ff;
-  --modern-c-blue-dimm: rgba(100, 108, 255, 0.08);
+  --modern-c-blue-darker: #3367af;
+  --modern-c-blue-dimm-1: rgba(0, 149, 255, 0.5);
+  --modern-c-blue-dimm-2: rgba(0, 149, 255, 0.25);
+  --modern-c-blue-dimm-3: rgba(0, 149, 255, 0.05);
+
+  --modern-c-yellow: #ffc517;
+  --modern-c-yellow-light: #fcd253;
+  --modern-c-yellow-lighter: #fcfc7c;
+  --modern-c-yellow-darker: #ad850e;
+  --modern-c-yellow-dimm-1: rgba(255, 197, 23, 0.5);
+  --modern-c-yellow-dimm-2: rgba(255, 197, 23, 0.25);
+  --modern-c-yellow-dimm-3: rgba(255, 197, 23, 0.05);
+
+  --modern-c-red: #ed3c50;
+  --modern-c-red-light: #f54e82;
+  --modern-c-red-lighter: #fd1d7c;
+  --modern-c-red-darker: #ab2131;
+  --modern-c-red-dimm-1: rgba(237, 60, 80, 0.5);
+  --modern-c-red-dimm-2: rgba(237, 60, 80, 0.25);
+  --modern-c-red-dimm-3: rgba(237, 60, 80, 0.05);
 }
 
 /**
@@ -253,9 +271,9 @@
 :root {
   --modern-custom-block-code-font-size: 13px;
 
-  --modern-custom-block-info-border: var(--modern-c-divider-light);
-  --modern-custom-block-info-text: var(--modern-c-text-2);
-  --modern-custom-block-info-bg: var(--modern-c-white-soft);
+  --modern-custom-block-info-border: var(--modern-c-blue-dimm-1);
+  --modern-custom-block-info-text: var(--modern-c-brand);
+  --modern-custom-block-info-bg: var(--modern-c-blue-lighter);
   --modern-custom-block-info-code-bg: var(--modern-c-gray-light-4);
 
   --modern-custom-block-tip-border: var(--modern-c-green-dimm-1);
@@ -302,7 +320,15 @@
  * -------------------------------------------------------------------------- */
 
 :root {
-  --modern-sidebar-width: 272px;
+  --modern-sidebar-width: 280px;
+}
+
+/**
+ * Component: Aside(Outline)
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --modern-aside-width: 256px;
 }
 
 /**

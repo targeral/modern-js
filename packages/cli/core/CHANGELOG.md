@@ -1,5 +1,84 @@
 # @modern-js/core
 
+## 2.1.0
+
+### Patch Changes
+
+- bafa52e: fix(core): incorrect NODE_ENV when run start command
+
+  fix(core): 修复运行 start 命令时 NODE_ENV 设置错误的问题
+
+- Updated dependencies [837620c]
+- Updated dependencies [8a9482c]
+  - @modern-js/utils@2.1.0
+  - @modern-js/node-bundle-require@2.1.0
+  - @modern-js/plugin@2.1.0
+
+## 2.0.2
+
+### Patch Changes
+
+- @modern-js/utils@2.0.2
+- @modern-js/node-bundle-require@2.0.2
+- @modern-js/plugin@2.0.2
+
+## 2.0.1
+
+### Patch Changes
+
+- @modern-js/node-bundle-require@2.0.1
+- @modern-js/plugin@2.0.1
+- @modern-js/utils@2.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Minor Changes
+
+- c9e800d39a: feat: support React18 streaming SSR
+  feat: 支持 React18 流式 SSR
+- edd1cfb1af: feat: modernjs Access builder compiler
+  feat: modernjs 接入 builder 构建
+
+### Patch Changes
+
+- 8b8e1bb571: feat: support nested routes
+  feat: 支持嵌套路由
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [ffb2ed4]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/utils@2.0.0
+  - @modern-js/node-bundle-require@2.0.0
+  - @modern-js/plugin@2.0.0
+
+## 2.0.0-beta.7
+
+### Major Changes
+
+- dda38c9c3e: chore: v2
+
+### Minor Changes
+
+- c9e800d39a: feat: support React18 streaming SSR
+  feat: 支持 React18 流式 SSR
+- edd1cfb1af: feat: modernjs Access builder compiler
+  feat: modernjs 接入 builder 构建
+
+### Patch Changes
+
+- 8b8e1bb571: feat: support nested routes
+  feat: 支持嵌套路由
+- Updated dependencies [edd1cfb1af]
+- Updated dependencies [dda38c9c3e]
+- Updated dependencies [bbe4c4ab64]
+  - @modern-js/utils@2.0.0-beta.7
+  - @modern-js/node-bundle-require@2.0.0-beta.7
+  - @modern-js/plugin@2.0.0-beta.7
+
 ## 2.0.0-beta.6
 
 ### Major Changes

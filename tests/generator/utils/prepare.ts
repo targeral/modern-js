@@ -19,6 +19,8 @@ async function addNewActionDevDependence(repoCwd: string) {
     '@modern-js/repo-generator': 'workspace:*',
     '@modern-js/tailwindcss-generator': 'workspace:*',
     '@modern-js/storybook-generator': 'workspace:*',
+    '@modern-js/ssg-generator': 'workspace:*',
+    '@modern-js/module-test-generator': 'workspace:*',
   };
   await fs.writeFile(
     actionPath,
@@ -43,7 +45,7 @@ export async function prepare(type: string) {
   const repoDir = path.resolve('../');
   if (isLocal) {
     process.env.CODESMITH_ENV = 'development';
-    addNewActionDevDependence(repoDir);
+    await addNewActionDevDependence(repoDir);
   }
   const tmpDir = path.join(os.tmpdir(), 'modern-generators', type);
   await fs.remove(tmpDir);
