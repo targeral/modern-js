@@ -1,0 +1,471 @@
+"use strict";
+(self["webpackChunk_modern_js_main_doc_website"] = self["webpackChunk_modern_js_main_doc_website"] || []).push([[36149],{
+
+/***/ 56905:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "content": () => (/* binding */ mount_id_content),
+  "default": () => (/* binding */ mount_id),
+  "frontmatter": () => (/* binding */ mount_id_frontmatter),
+  "title": () => (/* binding */ title),
+  "toc": () => (/* binding */ mount_id_toc)
+});
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/react@18.2.0/node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(97458);
+;// CONCATENATED MODULE: ../../packages/builder/builder-doc/docs/zh/config/html/mountId.md
+/*@jsxRuntime automatic @jsxImportSource react*/
+
+const frontmatter = (/* unused pure expression or super */ null && (undefined));
+const toc = [{
+  "id": "示例",
+  "text": "示例",
+  "depth": 4
+}];
+const content = "\"- Type: `string`\\n- Default: `'root'`\\n\\n默认情况下，HTML 模板中包含了 `root` 节点用于组件挂载，通过 `mountId` 可以修改该节点的 id。\\n\\n```html\\n<body>\\n  <div id=\\\"root\\\"></div>\\n</body>\\n```\\n\\n#### 示例\\n\\n修改 DOM 挂载节点 `id` 为 `app`：\\n\\n```js\\nexport default {\\n  html: {\\n    mountId: 'app',\\n  },\\n};\\n```\\n\\n编译后：\\n\\n```html\\n<body>\\n  <div id=\\\"app\\\"></div>\\n</body>\\n```\\n\\n:::tip\\n如果自定义了 HTML 模板，请确保模板中包含 `<div id=\\\"<%= mountId %>\\\"></div>`，否则该配置项无法生效。\\n:::\\n\"";
+function _createMdxContent(props) {
+  const _components = Object.assign({
+    ul: "ul",
+    li: "li",
+    code: "code",
+    p: "p",
+    div: "div",
+    button: "button",
+    pre: "pre",
+    span: "span",
+    h4: "h4",
+    a: "a"
+  }, props.components);
+  return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
+    children: [(0,jsx_runtime.jsxs)(_components.ul, {
+      children: ["\n", (0,jsx_runtime.jsxs)(_components.li, {
+        children: ["Type: ", (0,jsx_runtime.jsx)(_components.code, {
+          children: "string"
+        })]
+      }), "\n", (0,jsx_runtime.jsxs)(_components.li, {
+        children: ["Default: ", (0,jsx_runtime.jsx)(_components.code, {
+          children: "'root'"
+        })]
+      }), "\n"]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["默认情况下，HTML 模板中包含了 ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "root"
+      }), " 节点用于组件挂载，通过 ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "mountId"
+      }), " 可以修改该节点的 id。"]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.div, {
+      className: "language-html",
+      children: [(0,jsx_runtime.jsx)(_components.div, {
+        className: ""
+      }), (0,jsx_runtime.jsxs)(_components.div, {
+        className: "modern-code-content",
+        children: [(0,jsx_runtime.jsx)(_components.button, {
+          className: "copy"
+        }), (0,jsx_runtime.jsx)(_components.pre, {
+          className: "shiki",
+          style: {
+            backgroundColor: "#2e3440ff"
+          },
+          children: (0,jsx_runtime.jsxs)(_components.code, {
+            children: [(0,jsx_runtime.jsx)(_components.span, {
+              className: "line",
+              children: (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "<body>"
+              })
+            }), "\n", (0,jsx_runtime.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: "  "
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "<div"
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#8FBCBB"
+                },
+                children: "id"
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "="
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "\""
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#A3BE8C"
+                },
+                children: "root"
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "\""
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "></div>"
+              })]
+            }), "\n", (0,jsx_runtime.jsx)(_components.span, {
+              className: "line",
+              children: (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "</body>"
+              })
+            }), "\n", (0,jsx_runtime.jsx)(_components.span, {
+              className: "line"
+            })]
+          })
+        })]
+      })]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.h4, {
+      id: "示例",
+      children: [(0,jsx_runtime.jsx)(_components.a, {
+        className: "header-anchor",
+        "aria-hidden": "true",
+        href: "#示例",
+        children: "#"
+      }), "示例"]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.p, {
+      children: ["修改 DOM 挂载节点 ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "id"
+      }), " 为 ", (0,jsx_runtime.jsx)(_components.code, {
+        children: "app"
+      }), "："]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.div, {
+      className: "language-js",
+      children: [(0,jsx_runtime.jsx)(_components.div, {
+        className: ""
+      }), (0,jsx_runtime.jsxs)(_components.div, {
+        className: "modern-code-content",
+        children: [(0,jsx_runtime.jsx)(_components.button, {
+          className: "copy"
+        }), (0,jsx_runtime.jsx)(_components.pre, {
+          className: "shiki",
+          style: {
+            backgroundColor: "#2e3440ff"
+          },
+          children: (0,jsx_runtime.jsxs)(_components.code, {
+            children: [(0,jsx_runtime.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "export"
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "default"
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "{"
+              })]
+            }), "\n", (0,jsx_runtime.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: "  "
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#88C0D0"
+                },
+                children: "html"
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: ":"
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "{"
+              })]
+            }), "\n", (0,jsx_runtime.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: "    "
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#88C0D0"
+                },
+                children: "mountId"
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: ":"
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "'"
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#A3BE8C"
+                },
+                children: "app"
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "'"
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: ","
+              })]
+            }), "\n", (0,jsx_runtime.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: "  "
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "},"
+              })]
+            }), "\n", (0,jsx_runtime.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "}"
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: ";"
+              })]
+            }), "\n", (0,jsx_runtime.jsx)(_components.span, {
+              className: "line"
+            })]
+          })
+        })]
+      })]
+    }), "\n", (0,jsx_runtime.jsx)(_components.p, {
+      children: "编译后："
+    }), "\n", (0,jsx_runtime.jsxs)(_components.div, {
+      className: "language-html",
+      children: [(0,jsx_runtime.jsx)(_components.div, {
+        className: ""
+      }), (0,jsx_runtime.jsxs)(_components.div, {
+        className: "modern-code-content",
+        children: [(0,jsx_runtime.jsx)(_components.button, {
+          className: "copy"
+        }), (0,jsx_runtime.jsx)(_components.pre, {
+          className: "shiki",
+          style: {
+            backgroundColor: "#2e3440ff"
+          },
+          children: (0,jsx_runtime.jsxs)(_components.code, {
+            children: [(0,jsx_runtime.jsx)(_components.span, {
+              className: "line",
+              children: (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "<body>"
+              })
+            }), "\n", (0,jsx_runtime.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: "  "
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "<div"
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#8FBCBB"
+                },
+                children: "id"
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "="
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "\""
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#A3BE8C"
+                },
+                children: "app"
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "\""
+              }), (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "></div>"
+              })]
+            }), "\n", (0,jsx_runtime.jsx)(_components.span, {
+              className: "line",
+              children: (0,jsx_runtime.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "</body>"
+              })
+            }), "\n", (0,jsx_runtime.jsx)(_components.span, {
+              className: "line"
+            })]
+          })
+        })]
+      })]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.div, {
+      className: "modern-directive tip",
+      children: [(0,jsx_runtime.jsx)(_components.p, {
+        className: "modern-directive-title",
+        children: "TIP"
+      }), (0,jsx_runtime.jsx)(_components.div, {
+        className: "modern-directive-content",
+        children: (0,jsx_runtime.jsxs)(_components.p, {
+          children: ["\n如果自定义了 HTML 模板，请确保模板中包含 ", (0,jsx_runtime.jsx)(_components.code, {
+            children: "<div id=\"<%= mountId %>\"></div>"
+          }), "，否则该配置项无法生效。"]
+        })
+      })]
+    })]
+  });
+}
+function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = props.components || ({});
+  return MDXLayout ? (0,jsx_runtime.jsx)(MDXLayout, Object.assign({}, props, {
+    children: (0,jsx_runtime.jsx)(_createMdxContent, props)
+  })) : _createMdxContent(props);
+}
+/* harmony default export */ const mountId = (MDXContent);
+
+;// CONCATENATED MODULE: ../../packages/toolkit/main-doc/zh/configure/app/html/mount-id.mdx
+/*@jsxRuntime automatic @jsxImportSource react*/
+
+const mount_id_frontmatter = {
+  "title": "html.mountId",
+  "sidebar_label": "mountId"
+};
+
+const mount_id_toc = [];
+const title = `mountId`;
+const mount_id_content = "\"---\\ntitle: html.mountId\\nsidebar_label: mountId\\n---\\n# mountId\\n\\n:::info BUILDER\\n该配置为 Modern.js Builder 配置，详细信息可参考 [html.mountId](https://modernjs.dev/builder/api/config-html.html#html-mountid)。\\n:::\\n\\nimport Main from '@modern-js/builder-doc/docs/zh/config/html/mountId.md'\\n\\n<Main />\\n\"";
+function mount_id_createMdxContent(props) {
+  const _components = Object.assign({
+    h1: "h1",
+    a: "a",
+    div: "div",
+    p: "p"
+  }, props.components);
+  return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
+    children: [(0,jsx_runtime.jsxs)(_components.h1, {
+      id: "mountid",
+      children: [(0,jsx_runtime.jsx)(_components.a, {
+        className: "header-anchor",
+        "aria-hidden": "true",
+        href: "#mountid",
+        children: "#"
+      }), "mountId"]
+    }), "\n", (0,jsx_runtime.jsxs)(_components.div, {
+      className: "modern-directive info",
+      children: [(0,jsx_runtime.jsx)(_components.p, {
+        className: "modern-directive-title",
+        children: "BUILDER"
+      }), (0,jsx_runtime.jsx)(_components.div, {
+        className: "modern-directive-content",
+        children: (0,jsx_runtime.jsxs)(_components.p, {
+          children: ["\n该配置为 Modern.js Builder 配置，详细信息可参考 ", (0,jsx_runtime.jsx)(_components.a, {
+            href: "https://modernjs.dev/builder/api/config-html.html#html-mountid-2",
+            target: "_blank",
+            rel: "nofollow",
+            children: "html.mountId"
+          }), "。"]
+        })
+      })]
+    }), "\n", "\n", (0,jsx_runtime.jsx)(mountId, {})]
+  });
+}
+function mount_id_MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = props.components || ({});
+  return MDXLayout ? (0,jsx_runtime.jsx)(MDXLayout, Object.assign({}, props, {
+    children: (0,jsx_runtime.jsx)(mount_id_createMdxContent, props)
+  })) : mount_id_createMdxContent(props);
+}
+/* harmony default export */ const mount_id = (mount_id_MDXContent);
+
+
+/***/ })
+
+}]);
