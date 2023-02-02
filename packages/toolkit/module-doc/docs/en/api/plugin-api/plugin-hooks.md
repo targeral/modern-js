@@ -134,6 +134,58 @@ export interface BuildResult {
 }
 ```
 
+### `buildWatchJs`
+
+Built in listener mode, triggered when the JS product is updated.
+
+```ts
+export default (): CliPlugin<ModuleTools> => ({
+  name: 'my-plugin',
+
+  setup() {
+    return {
+      buildWatchJs(options: WatchJsHookContext): void {
+        // ...
+      },
+    };
+  },
+});
+```
+
+Parameters and return value types.
+
+```ts
+export interface WatchJsHookContext {
+  buildConfig: BaseBuildConfig;
+}
+```
+
+### `buildWatchDts`
+
+Built to listen in a mode that triggers when the type file product is updated.
+
+```ts
+export default (): CliPlugin<ModuleTools> => ({
+  name: 'my-plugin',
+
+  setup() {
+    return {
+      buildWatchJs(options: WatchDtsHookContext): void {
+        // ...
+      },
+    };
+  },
+});
+```
+
+Parameters and return value types.
+
+```ts
+export interface WatchDtsHookContext {
+  buildType: BuildType;
+}
+```
+
 ## buildPlatform hooks
 
 module-tools also provides the `build --platform` command to perform specific build tasks.

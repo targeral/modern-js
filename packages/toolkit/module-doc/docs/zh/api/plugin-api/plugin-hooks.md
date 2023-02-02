@@ -136,6 +136,58 @@ export interface BuildResult {
 }
 ```
 
+### `buildWatchJs`
+
+构建的监听模式下，当 JS 产物更新后触发。
+
+```ts
+export default (): CliPlugin<ModuleTools> => ({
+  name: 'my-plugin',
+
+  setup() {
+    return {
+      buildWatchJs(options: WatchJsHookContext): void {
+        // ...
+      },
+    };
+  },
+});
+```
+
+参数和返回值类型：
+
+```ts
+export interface WatchJsHookContext {
+  buildConfig: BaseBuildConfig;
+}
+```
+
+### `buildWatchDts`
+
+构建的监听模式下，当类型文件产物更新后触发。
+
+```ts
+export default (): CliPlugin<ModuleTools> => ({
+  name: 'my-plugin',
+
+  setup() {
+    return {
+      buildWatchJs(options: WatchDtsHookContext): void {
+        // ...
+      },
+    };
+  },
+});
+```
+
+参数和返回值类型：
+
+```ts
+export interface WatchDtsHookContext {
+  buildType: BuildType;
+}
+```
+
 ## buildPlatform 钩子
 
 module-tools 还提供了 `build --platform` 命令来执行特定的构建任务。
