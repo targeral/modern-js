@@ -1,7 +1,7 @@
 "use strict";
-(self["webpackChunk_modern_js_main_doc_website"] = self["webpackChunk_modern_js_main_doc_website"] || []).push([[53694],{
+(self["webpackChunk_modern_js_main_doc_website"] = self["webpackChunk_modern_js_main_doc_website"] || []).push([[94981],{
 
-/***/ 12986:
+/***/ 5714:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -19,28 +19,40 @@ const frontmatter = {
   "sidebar_position": 0
 };
 const toc = [{
-  "id": "在配置文件中配置",
-  "text": "在配置文件中配置",
+  "id": "configure-in-the-configuration-file",
+  "text": "Configure in the configuration file",
   "depth": 2
 }, {
   "id": "modernconfigjs",
   "text": "modern.config.js",
   "depth": 3
 }, {
-  "id": "modernconfigts推荐",
-  "text": "modern.config.ts（推荐）",
+  "id": "modernconfigts-recommended",
+  "text": "modern.config.ts (recommended)",
   "depth": 3
 }, {
-  "id": "在-packagejson-中配置不推荐",
-  "text": "在 package.json 中配置（不推荐）",
+  "id": "configure-in-packagejson-not-recommended",
+  "text": "Configure in package.json (not recommended)",
   "depth": 2
 }, {
-  "id": "注意事项",
-  "text": "注意事项",
+  "id": "note",
+  "text": "Note",
+  "depth": 3
+}, {
+  "id": "debug-configuration-locally",
+  "text": "Debug configuration locally",
   "depth": 2
+}, {
+  "id": "example",
+  "text": "Example",
+  "depth": 3
+}, {
+  "id": "note",
+  "text": "Note",
+  "depth": 3
 }];
-const title = `配置使用`;
-const content = "\"---\\nsidebar_position: 0\\n---\\n\\n# 配置使用\\n\\nModern.js 中有两种配置，一个是编译时配置，一个是服务端运行时配置。\\n\\n编译时配置可以在两个位置进行配置：\\n\\n- `package.json` 文件\\n- 根路径下的 `modern.config.t(j)s` 文件\\n\\n:::info意\\n不支持同时在 package.json 中和 modern.config.ts 中配置同一个配置项，推荐优先在 modern.config.ts 中进行配置。如果 Modern.js 检测到重复配置导致的冲突，将会抛出警告。\\n:::\\n\\n服务端运行时配置可以在根路径下的 `modern.server-runtime.config.t(j)s` 中自定义配置选项。\\n\\n## 在配置文件中配置\\n\\nModern.js 的配置文件定义在项目的根目录下，支持 `.js`, `.ts` 和 `.mjs` 格式：\\n\\n- `modern.config.js`\\n- `modern.config.ts`\\n- `modern.config.mjs`\\n\\n### modern.config.js\\n\\n`modern.config.js` 中可以使用 JavaScript 语法，因此比 `package.json` 更加灵活。\\n\\n比如，你可以在 `modern.config.js` 中定义函数类型的配置选项：\\n\\n```js title=\\\"modern.config.js\\\"\\nexport default {\\n  source: {\\n    alias: opts => {\\n      opts['@common'] = './src/common';\\n    },\\n  },\\n};\\n```\\n\\n你也可以通过 `process.env.NODE_ENV` 进行动态设置：\\n\\n```js title=\\\"modern.config.js\\\"\\nexport default {\\n  server: {\\n    ssr: process.env.NODE_ENV === 'development',\\n  },\\n};\\n```\\n\\n### modern.config.ts（推荐）\\n\\n我们推荐使用 .ts 格式的配置文件，它提供了友好的 TypeScript 类型提示，从而帮助你避免配置中的错误。\\n\\n从 `@modern-js/app-tools` 中导入 `defineConfig` 工具函数, 它会帮助你进行配置的类型推导和类型补全：\\n\\n```ts title=\\\"modern.config.ts\\\"\\nimport { defineConfig } from '@modern-js/app-tools';\\n\\nexport default defineConfig({\\n  source: {\\n    alias: {\\n      '@common': './src/common',\\n    },\\n  },\\n});\\n```\\n\\n## 在 package.json 中配置（不推荐）\\n\\n除了配置文件外，也可以在 `package.json` 中的 `modernConfig` 字段下设置配置选项，如：\\n\\n```json title=\\\"package.json\\\"\\n{\\n  \\\"modernConfig\\\": {\\n    \\\"source\\\": {\\n      \\\"alias\\\": {\\n        \\\"@common\\\": \\\"./src/common\\\"\\n      }\\n    }\\n  }\\n}\\n```\\n\\n由于 JSON 文件格式的限制，`package.json` 中只能定义数字、字符串、布尔值、数组等简单类型的值，当我们需要设置函数类型的值时，建议在 Modern.js 配置文件中进行设置。\\n\\n## 注意事项\\n\\n- 不建议同时使用 `package.json` 和 `modern.config.js` 进行配置。如果同时使用了两者并出现配置冲突，Modern.js 会在命令行进行提示。\\n- `@modern-js/runtime` 导出了同名的 [defineConfig](/apis/app/runtime/app/define-config) API，请注意区分。\\n\"";
+const title = `Configure to use`;
+const content = "\"---\\nsidebar_position: 0\\n---\\n\\n# Configure to use\\n\\nThere are two configurations in the Modern.js, a compile configuration and a server runtime configuration.\\n\\nThe compile configuration can be configured in two places:\\n\\n- `modern.config.(ts|js|mjs)` file in the root path\\n- `package.json` file\\n\\n:::info\\nConfigurations in both package.json and modern.config.ts file are not supported for the same configuration. Configuration in modern.config.ts is recommended.\\n:::\\n\\nServer runtime configuration can be configured in the `modern.server-runtime.config.(ts|js|mjs)` file in the root path.\\n\\n## Configure in the configuration file\\n\\nModern.js configuration files are defined in the root path of the project, and supports `.js`, `.ts` and `.mjs` formats:\\n\\n- `modern.config.js`\\n- `modern.config.ts`\\n- `modern.config.mjs`\\n\\n### modern.config.js\\n\\nYou can use JavaScript syntax in the `modern.config.js` file and it is more flexible than in the `package.json` file.\\n\\nFor example, you can define configuration options for function types in `modern.config.js`:\\n\\n```js title=\\\"modern.config.js\\\"\\nexport default {\\n  source: {\\n    alias: opts => {\\n      opts['@common'] = './src/common';\\n    },\\n  },\\n};\\n```\\n\\nYou can also dynamically set it with `process.env.NODE _ENV`:\\n\\n```js title=\\\"modern.config.js\\\"\\nexport default {\\n  server: {\\n    ssr: process.env.NODE_ENV === 'development',\\n  },\\n};\\n```\\n\\n### modern.config.ts (recommended)\\n\\nWe recommend using configuration files in `.ts` format, which provides friendly TypeScript type hints to help you avoid configuration errors.\\n\\nImport the `defineConfig` tool function from `@modern-js/app-tools`, which will help you with configuration type derivation and type completion:\\n\\n```ts title=\\\"modern.config.ts\\\"\\nimport { defineConfig } from '@modern-js/app-tools';\\n\\nexport default defineConfig({\\n  source: {\\n    alias: {\\n      '@common': './src/common',\\n    },\\n  },\\n});\\n```\\n\\n## Configure in package.json (not recommended)\\n\\nIn addition to configuration files, configuration options can also be set the `modernConfig` field in the `package.json`, such as:\\n\\n```json title=\\\"package.json\\\"\\n{\\n  \\\"modernConfig\\\": {\\n    \\\"source\\\": {\\n      \\\"alias\\\": {\\n        \\\"@common\\\": \\\"./src/common\\\"\\n      }\\n    }\\n  }\\n}\\n```\\n\\nDue to the limitation of the JSON file format, only simple types such as numbers, strings, boolean values, arrays, etc. can be defined in `package.json`. When we need to set the value of the function type, it is recommended to set it in the Modern.js configuration file.\\n\\n### Note\\n\\n- It is not recommended to use both `package.json` and `modern.config.t[j]s` for configuration. If both are used and a configuration conflict occurs, Modern.js will prompt error on the command line.\\n- `@modern-js/runtime` exports the [defineConfig](/apis/app/runtime/app/define-config) API of the same name, please pay attention to the distinction.\\n\\n## Debug configuration locally\\n\\nTo facilitate local debugging configuration locally, Modern.js supports creating `modern.config.local.(ts|js|mjs)` files in the root directory of the project to override `modern.config.(ts|js|mjs)` configurations.\\n\\n### Example\\n\\nFor example, the port number is configured as `3000` in `modern.config.ts`:\\n\\n```ts title=\\\"modern.config.ts\\\"\\nimport { defineConfig } from '@modern-js/app-tools';\\n\\nexport default defineConfig({\\n  server: {\\n    port: 3000,\\n  },\\n});\\n```\\n\\nIf you need to change the port number to `3001` to debugging locally, but you don't want to change the `modern.config.ts` file of the current project, you can create a `modern.config.local.ts` file and add the following configuration:\\n\\n```ts title=\\\"modern.config.local.ts\\\"\\nimport { defineConfig } from '@modern-js/app-tools';\\n\\nexport default defineConfig({\\n  server: {\\n    port: 3001,\\n  },\\n});\\n```\\n\\nThe configuration in the `modern.config.local.ts` file will be deep merged with the configuration in `modern.config.ts` and override the configurations in `modern.config.ts`, so `server.port` will be is overridden by `3001`.\\n\\n### Note\\n\\nWhen using `modern.config.local.ts`, please note the following:\\n\\n- The `modern.config.local.ts` file is only loaded when running `modern dev` or `modern start` commands, and will not be loaded when running `modern build`.\\n- The `modern.config.local.ts` file overrides not only over `modern.config.ts`, but also the `modernConfig` field in `package.json`.\\n- As `modern.config.local.ts` is only used for local debugging, it is not recommended to commit it to the repository, please ensure that the project's `.gitignore` file contains `modern.config.local.ts`.\\n\\n```bash title=\\\".gitingore\\\"\\nmodern.config.local.ts\\nmodern.config.local.js\\nmodern.config.local.mjs\\n```\\n\"";
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",
@@ -58,58 +70,58 @@ function _createMdxContent(props) {
   }, props.components);
   return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.h1, {
-      id: "配置使用",
+      id: "configure-to-use",
       children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
         className: "header-anchor",
         "aria-hidden": "true",
-        href: "#配置使用",
+        href: "#configure-to-use",
         children: "#"
-      }), "配置使用"]
+      }), "Configure to use"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "Modern.js 中有两种配置，一个是编译时配置，一个是服务端运行时配置。"
+      children: "There are two configurations in the Modern.js, a compile configuration and a server runtime configuration."
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "编译时配置可以在两个位置进行配置："
+      children: "The compile configuration can be configured in two places:"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.ul, {
       children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.li, {
         children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-          children: "package.json"
-        }), " 文件"]
+          children: "modern.config.(ts|js|mjs)"
+        }), " file in the root path"]
       }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.li, {
-        children: ["根路径下的 ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-          children: "modern.config.t(j)s"
-        }), " 文件"]
+        children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+          children: "package.json"
+        }), " file"]
       }), "\n"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.div, {
       className: "modern-directive info",
       children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
         className: "modern-directive-title",
-        children: "意"
+        children: "INFO"
       }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.div, {
         className: "modern-directive-content",
         children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-          children: "\n不支持同时在 package.json 中和 modern.config.ts 中配置同一个配置项，推荐优先在 modern.config.ts 中进行配置。如果 Modern.js 检测到重复配置导致的冲突，将会抛出警告。"
+          children: "\nConfigurations in both package.json and modern.config.ts file are not supported for the same configuration. Configuration in modern.config.ts is recommended."
         })
       })]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
-      children: ["服务端运行时配置可以在根路径下的 ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        children: "modern.server-runtime.config.t(j)s"
-      }), " 中自定义配置选项。"]
+      children: ["Server runtime configuration can be configured in the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "modern.server-runtime.config.(ts|js|mjs)"
+      }), " file in the root path."]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.h2, {
-      id: "在配置文件中配置",
+      id: "configure-in-the-configuration-file",
       children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
         className: "header-anchor",
         "aria-hidden": "true",
-        href: "#在配置文件中配置",
+        href: "#configure-in-the-configuration-file",
         children: "#"
-      }), "在配置文件中配置"]
+      }), "Configure in the configuration file"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
-      children: ["Modern.js 的配置文件定义在项目的根目录下，支持 ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+      children: ["Modern.js configuration files are defined in the root path of the project, and supports ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         children: ".js"
       }), ", ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         children: ".ts"
-      }), " 和 ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+      }), " and ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         children: ".mjs"
-      }), " 格式："]
+      }), " formats:"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.ul, {
       children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
         children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
@@ -133,15 +145,15 @@ function _createMdxContent(props) {
         children: "#"
       }), "modern.config.js"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
-      children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+      children: ["You can use JavaScript syntax in the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         children: "modern.config.js"
-      }), " 中可以使用 JavaScript 语法，因此比 ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+      }), " file and it is more flexible than in the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         children: "package.json"
-      }), " 更加灵活。"]
+      }), " file."]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
-      children: ["比如，你可以在 ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+      children: ["For example, you can define configuration options for function types in ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         children: "modern.config.js"
-      }), " 中定义函数类型的配置选项："]
+      }), ":"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.div, {
       className: "language-js",
       children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.div, {
@@ -375,9 +387,9 @@ function _createMdxContent(props) {
         })]
       })]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
-      children: ["你也可以通过 ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        children: "process.env.NODE_ENV"
-      }), " 进行动态设置："]
+      children: ["You can also dynamically set it with ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "process.env.NODE _ENV"
+      }), ":"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.div, {
       className: "language-js",
       children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.div, {
@@ -565,21 +577,23 @@ function _createMdxContent(props) {
         })]
       })]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.h3, {
-      id: "modernconfigts推荐",
+      id: "modernconfigts-recommended",
       children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
         className: "header-anchor",
         "aria-hidden": "true",
-        href: "#modernconfigts推荐",
+        href: "#modernconfigts-recommended",
         children: "#"
-      }), "modern.config.ts（推荐）"]
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "我们推荐使用 .ts 格式的配置文件，它提供了友好的 TypeScript 类型提示，从而帮助你避免配置中的错误。"
+      }), "modern.config.ts (recommended)"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
-      children: ["从 ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        children: "@modern-js/app-tools"
-      }), " 中导入 ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+      children: ["We recommend using configuration files in ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: ".ts"
+      }), " format, which provides friendly TypeScript type hints to help you avoid configuration errors."]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
+      children: ["Import the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         children: "defineConfig"
-      }), " 工具函数, 它会帮助你进行配置的类型推导和类型补全："]
+      }), " tool function from ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "@modern-js/app-tools"
+      }), ", which will help you with configuration type derivation and type completion:"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.div, {
       className: "language-ts",
       children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.div, {
@@ -868,19 +882,19 @@ function _createMdxContent(props) {
         })]
       })]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.h2, {
-      id: "在-packagejson-中配置不推荐",
+      id: "configure-in-packagejson-not-recommended",
       children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
         className: "header-anchor",
         "aria-hidden": "true",
-        href: "#在-packagejson-中配置不推荐",
+        href: "#configure-in-packagejson-not-recommended",
         children: "#"
-      }), "在 package.json 中配置（不推荐）"]
+      }), "Configure in package.json (not recommended)"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
-      children: ["除了配置文件外，也可以在 ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        children: "package.json"
-      }), " 中的 ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+      children: ["In addition to configuration files, configuration options can also be set the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         children: "modernConfig"
-      }), " 字段下设置配置选项，如："]
+      }), " field in the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "package.json"
+      }), ", such as:"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.div, {
       className: "language-json",
       children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.div, {
@@ -1120,32 +1134,619 @@ function _createMdxContent(props) {
         })]
       })]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
-      children: ["由于 JSON 文件格式的限制，", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+      children: ["Due to the limitation of the JSON file format, only simple types such as numbers, strings, boolean values, arrays, etc. can be defined in ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         children: "package.json"
-      }), " 中只能定义数字、字符串、布尔值、数组等简单类型的值，当我们需要设置函数类型的值时，建议在 Modern.js 配置文件中进行设置。"]
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.h2, {
-      id: "注意事项",
+      }), ". When we need to set the value of the function type, it is recommended to set it in the Modern.js configuration file."]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.h3, {
+      id: "note",
       children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
         className: "header-anchor",
         "aria-hidden": "true",
-        href: "#注意事项",
+        href: "#note",
         children: "#"
-      }), "注意事项"]
+      }), "Note"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.ul, {
       children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.li, {
-        children: ["不建议同时使用 ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: ["It is not recommended to use both ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
           children: "package.json"
-        }), " 和 ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-          children: "modern.config.js"
-        }), " 进行配置。如果同时使用了两者并出现配置冲突，Modern.js 会在命令行进行提示。"]
+        }), " and ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+          children: "modern.config.t[j]s"
+        }), " for configuration. If both are used and a configuration conflict occurs, Modern.js will prompt error on the command line."]
       }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.li, {
         children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
           children: "@modern-js/runtime"
-        }), " 导出了同名的 ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
-          href: "/v2/apis/app/runtime/app/define-config.html",
+        }), " exports the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
+          href: "/v2/en/apis/app/runtime/app/define-config.html",
           children: "defineConfig"
-        }), " API，请注意区分。"]
+        }), " API of the same name, please pay attention to the distinction."]
       }), "\n"]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.h2, {
+      id: "debug-configuration-locally",
+      children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
+        className: "header-anchor",
+        "aria-hidden": "true",
+        href: "#debug-configuration-locally",
+        children: "#"
+      }), "Debug configuration locally"]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
+      children: ["To facilitate local debugging configuration locally, Modern.js supports creating ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "modern.config.local.(ts|js|mjs)"
+      }), " files in the root directory of the project to override ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "modern.config.(ts|js|mjs)"
+      }), " configurations."]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.h3, {
+      id: "example",
+      children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
+        className: "header-anchor",
+        "aria-hidden": "true",
+        href: "#example",
+        children: "#"
+      }), "Example"]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
+      children: ["For example, the port number is configured as ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "3000"
+      }), " in ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "modern.config.ts"
+      }), ":"]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.div, {
+      className: "language-ts",
+      children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.div, {
+        className: "modern-code-title",
+        children: "modern.config.ts"
+      }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.div, {
+        className: "modern-code-content",
+        children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.button, {
+          className: "copy"
+        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
+          className: "shiki",
+          style: {
+            backgroundColor: "#2e3440ff"
+          },
+          children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.code, {
+            children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "import"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "{"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9"
+                },
+                children: "defineConfig"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "}"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "from"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "'"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#A3BE8C"
+                },
+                children: "@modern-js/app-tools"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "'"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: ";"
+              })]
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+              className: "line"
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "export"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "default"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#88C0D0"
+                },
+                children: "defineConfig"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: "("
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "{"
+              })]
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: "  "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9"
+                },
+                children: "server"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: ":"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "{"
+              })]
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: "    "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9"
+                },
+                children: "port"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: ":"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#B48EAD"
+                },
+                children: "3000"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: ","
+              })]
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: "  "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "},"
+              })]
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "}"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: ")"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: ";"
+              })]
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+              className: "line"
+            })]
+          })
+        })]
+      })]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
+      children: ["If you need to change the port number to ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "3001"
+      }), " to debugging locally, but you don't want to change the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "modern.config.ts"
+      }), " file of the current project, you can create a ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "modern.config.local.ts"
+      }), " file and add the following configuration:"]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.div, {
+      className: "language-ts",
+      children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.div, {
+        className: "modern-code-title",
+        children: "modern.config.local.ts"
+      }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.div, {
+        className: "modern-code-content",
+        children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.button, {
+          className: "copy"
+        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
+          className: "shiki",
+          style: {
+            backgroundColor: "#2e3440ff"
+          },
+          children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.code, {
+            children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "import"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "{"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9"
+                },
+                children: "defineConfig"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "}"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "from"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "'"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#A3BE8C"
+                },
+                children: "@modern-js/app-tools"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "'"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: ";"
+              })]
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+              className: "line"
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "export"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: "default"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#88C0D0"
+                },
+                children: "defineConfig"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: "("
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "{"
+              })]
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: "  "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9"
+                },
+                children: "server"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: ":"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "{"
+              })]
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: "    "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9"
+                },
+                children: "port"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: ":"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: " "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#B48EAD"
+                },
+                children: "3001"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: ","
+              })]
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: "  "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "},"
+              })]
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.span, {
+              className: "line",
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#ECEFF4"
+                },
+                children: "}"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: ")"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#81A1C1"
+                },
+                children: ";"
+              })]
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+              className: "line"
+            })]
+          })
+        })]
+      })]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
+      children: ["The configuration in the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "modern.config.local.ts"
+      }), " file will be deep merged with the configuration in ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "modern.config.ts"
+      }), " and override the configurations in ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "modern.config.ts"
+      }), ", so ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "server.port"
+      }), " will be is overridden by ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "3001"
+      }), "."]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.h3, {
+      id: "note-1",
+      children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
+        className: "header-anchor",
+        "aria-hidden": "true",
+        href: "#note-1",
+        children: "#"
+      }), "Note"]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
+      children: ["When using ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        children: "modern.config.local.ts"
+      }), ", please note the following:"]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.ul, {
+      children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.li, {
+        children: ["The ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+          children: "modern.config.local.ts"
+        }), " file is only loaded when running ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+          children: "modern dev"
+        }), " or ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+          children: "modern start"
+        }), " commands, and will not be loaded when running ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+          children: "modern build"
+        }), "."]
+      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.li, {
+        children: ["The ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+          children: "modern.config.local.ts"
+        }), " file overrides not only over ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+          children: "modern.config.ts"
+        }), ", but also the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+          children: "modernConfig"
+        }), " field in ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+          children: "package.json"
+        }), "."]
+      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.li, {
+        children: ["As ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+          children: "modern.config.local.ts"
+        }), " is only used for local debugging, it is not recommended to commit it to the repository, please ensure that the project's ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+          children: ".gitignore"
+        }), " file contains ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+          children: "modern.config.local.ts"
+        }), "."]
+      }), "\n"]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.div, {
+      className: "language-bash",
+      children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.div, {
+        className: "modern-code-title",
+        children: ".gitingore"
+      }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.div, {
+        className: "modern-code-content",
+        children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.button, {
+          className: "copy"
+        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
+          className: "shiki",
+          style: {
+            backgroundColor: "#2e3440ff"
+          },
+          children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.code, {
+            children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+              className: "line",
+              children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: "modern.config.local.ts"
+              })
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+              className: "line",
+              children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: "modern.config.local.js"
+              })
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+              className: "line",
+              children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+                style: {
+                  color: "#D8DEE9FF"
+                },
+                children: "modern.config.local.mjs"
+              })
+            }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.span, {
+              className: "line"
+            })]
+          })
+        })]
+      })]
     })]
   });
 }

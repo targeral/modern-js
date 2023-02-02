@@ -2465,6 +2465,7 @@ button select {
 .modern-doc ol {
   padding-left: 1.25rem;
   margin: 16px 0;
+  line-height: 28px;
 }
 
 .modern-doc ul {
