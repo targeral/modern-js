@@ -1,6 +1,10 @@
 {
   "folders": [
     {
+      "name": "toolkit/find-helper",
+      "path": "packages/toolkit/find-helper/"
+    },
+    {
       "name": "plugin-router-legacy",
       "path": "packages/runtime/plugin-router-legacy"
     },
@@ -306,7 +310,10 @@
       "**/bower_components": true
     },
     //
-    "editor.rulers": [80, 120],
+    "editor.rulers": [
+      80,
+      120
+    ],
     "files.eol": "\n",
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
