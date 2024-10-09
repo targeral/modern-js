@@ -59,6 +59,8 @@ async function processCache({
           // case 2: We should not cache the html, if the user's code contains <NoSSRCache>.
           if (match) {
             writer.close();
+            // TODO: delete cache
+            // container.set(key, JSON.stringify(cache), { ttl });
             return;
           }
           const current = Date.now();
@@ -180,7 +182,7 @@ export async function getCacheResult(
   const value = await container.get(key);
   const { maxAge, staleWhileRevalidate } = cacheControl;
   const ttl = maxAge + staleWhileRevalidate;
-
+  console.info('have value', value);
   if (value) {
     // has cache
     const cache: CacheStruct = JSON.parse(value);
@@ -217,6 +219,7 @@ export async function getCacheResult(
         },
       });
     } else {
+      console.info('this is expired');
       // the cache is invalidate
       return processCache({
         key,
